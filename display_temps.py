@@ -37,14 +37,16 @@ HEIGHT = disp.height
 
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 38)
 
-colour = [0, 0, 0]
+recorded_temps = []
 
 while True:
     img = Image.new("RGB", (WIDTH, HEIGHT), color=tuple(colour))
     draw = ImageDraw.Draw(img)
-        
+
+    ### try read from the sensor, display an error message if there is an error
     try:
         temperature = bme280.get_temperature()
+        recorded_temps.append(temperature)
         pressure = bme280.get_pressure()
         humidity = bme280.get_humidity()
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%")
@@ -52,23 +54,30 @@ while True:
         print('error reading data from bme280')
         draw.text((5, 5), "BME280 \nERROR", font=font, fill=(255,255,255))
         disp.display(img)
-        time.sleep(5)
+        time.sleep(3)
         disp.reset() ### not sure this does anything?
         disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
         sys.exit()
+
+    ### update the background colour based on the current temp relative to the last 2 mins
+    if len(recorded_temps) > 120:
+        recorded_temps = recorded_temps[:-120]
+
+    avg_temp = avg(recorded_temps)
+    min_temp = min(recorded_temps)
+    max_temp = max(recorded_temps)
+
+    if temperature > avg_temp: # closer to max = more red
+        colour = ((temperature - avg_temp) / (max_temp - avg_temp) * 255, 0, 0)
+    elif temperature < avg_temp: # closer to min = more blue
+        colour = (0, 0, (avg_temp - temperature) / (avg_temp - min_temp) * 255)
+    else:
+        colour = (0, 0, 0)
 
     draw.rectangle((0, 0, WIDTH, HEIGHT), tuple(colour))
     draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
     draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
     draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
     disp.display(img)
-
-    ### slowly change the colour
-    if colour[0] < 255:
-        colour[0] = colour[0] + 1
-    elif colour[1] < 255:
-        colour[1] = colour[1] + 1
-    else:
-        colour = [0, 0, 0]
 
     time.sleep(1)
