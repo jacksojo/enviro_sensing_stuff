@@ -68,9 +68,9 @@ while True:
     max_temp = max(recorded_temps)
 
     if temperature > avg_temp: # closer to max = more red
-        colour = ((temperature - avg_temp) / (max_temp - avg_temp) * 255, 0, 0)
+        colour = (int((temperature - avg_temp) / (max_temp - avg_temp) * 255), 0, 0)
     elif temperature < avg_temp: # closer to min = more blue
-        colour = (0, 0, (avg_temp - temperature) / (avg_temp - min_temp) * 255)
+        colour = (0, 0, int((avg_temp - temperature) / (avg_temp - min_temp) * 255))
     else:
         colour = (0, 0, 0)
 
