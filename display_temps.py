@@ -57,7 +57,7 @@ while True:
         disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
         sys.exit()
 
-    draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 255))
+    draw.rectangle((0, 0, WIDTH, HEIGHT), tuple(colour))
     draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
     draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
     draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
