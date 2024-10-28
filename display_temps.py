@@ -39,21 +39,18 @@ img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 0, 0))
 
 draw = ImageDraw.Draw(img)
 
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 30)
-
-size_x, size_y = draw.textsize("HI", font)
-
-text_x = disp.width
-text_y = (disp.height - size_y) // 2
+font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 38)
 
 while True:
     temperature = bme280.get_temperature()
     pressure = bme280.get_pressure()
     humidity = bme280.get_humidity()
+    print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%")
 
-    draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 0))
+    draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 255))
     draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-    draw.text((5, 55), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-    draw.text((5, 105), f" {humidity:05.2f}%", font=font, fill=(255, 255, 255))
+    draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
+    draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
+    disp.display(img)
 
     time.sleep(1)
