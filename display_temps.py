@@ -37,7 +37,7 @@ HEIGHT = disp.height
 
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 38)
 
-colour = (0, 0, 0)
+colour = [0, 0, 0]
 
 while True:
     img = Image.new("RGB", (WIDTH, HEIGHT), color=colour)
@@ -69,6 +69,6 @@ while True:
     elif colour[1] < 255:
         colour[1] = colour[1] + 1
     else:
-        colour = (0, 0, 0)
+        colour = [0, 0, 0]
 
     time.sleep(1)
