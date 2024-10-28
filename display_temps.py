@@ -40,7 +40,7 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 colour = [0, 0, 0]
 
 while True:
-    img = Image.new("RGB", (WIDTH, HEIGHT), color=colour)
+    img = Image.new("RGB", (WIDTH, HEIGHT), color=tuple(colour))
     draw = ImageDraw.Draw(img)
         
     try:
