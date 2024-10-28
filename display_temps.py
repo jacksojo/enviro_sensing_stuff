@@ -34,14 +34,13 @@ disp.begin()
 WIDTH = disp.width
 HEIGHT = disp.height
 
-
+img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 0, 0))
+draw = ImageDraw.Draw(img)
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 38)
 
 recorded_temps = []
 
 while True:
-    img = Image.new("RGB", (WIDTH, HEIGHT), color=tuple(colour))
-    draw = ImageDraw.Draw(img)
 
     ### try read from the sensor, display an error message if there is an error
     try:
