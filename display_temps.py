@@ -70,6 +70,7 @@ while True:
     def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
+    print(temperature, min_temp, avg_temp, max_temp)
     if temperature > avg_temp: # closer to max = more red
         colour = (int(div_0(temperature - avg_temp, max_temp - avg_temp) * 255), 0, 0)
     elif temperature < avg_temp: # closer to min = more blue
