@@ -54,7 +54,7 @@ while True:
         draw.text((5, 5), "BME280 ERROR", font=font, fill=(255,255,255))
         disp.display(img)
         time.sleep(5)
-        disp.reset()
+        disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
         sys.exit()
 
     draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 255))
