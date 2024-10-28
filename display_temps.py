@@ -52,6 +52,7 @@ while True:
     except:
         print('error reading data from bme280')
         draw.text((5, 5), "BME280 ERROR", font=font, fill=(255,255,255))
+        disp.display(img)
         time.sleep(5)
         disp.reset()
         sys.exit()
