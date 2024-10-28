@@ -4,6 +4,7 @@ import time
 from smbus2 import SMBus
 import sys
 from PIL import Image, ImageDraw, ImageFont
+import statistics
 
 from bme280 import BME280
 import st7789
@@ -62,7 +63,7 @@ while True:
     if len(recorded_temps) > 120:
         recorded_temps = recorded_temps[:-120]
 
-    avg_temp = avg(recorded_temps)
+    avg_temp = statistics.mean(recorded_temps)
     min_temp = min(recorded_temps)
     max_temp = max(recorded_temps)
 
