@@ -51,8 +51,10 @@ while True:
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%")
     except:
         print('error reading data from bme280)
+        draw.text((5, 5), "BME280 ERROR", font=font, fill=(255,255,255))
+        time.sleep(5)
+        disp.reset()
         sys.exit()
-
 
     draw.rectangle((0, 0, WIDTH, HEIGHT), (0, 0, 255))
     draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
