@@ -85,6 +85,8 @@ while True:
         colour = (0, 0, 0)
 
     draw.rectangle((0, 0, WIDTH, HEIGHT), tuple(colour))
+
+    ### add in the temperature text
     draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
     draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
     draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
