@@ -94,7 +94,7 @@ while True:
     try:
         ### try read from the sensor, display an error message if there is an error
         try:
-            tempreature, pressure, humidity, altitude = read_data()
+            temperature, pressure, humidity, altitude = read_data()
             recorded_temps.append(temperature)
         except:
             raise
