@@ -67,7 +67,10 @@ while True:
         return 0 if den == 0 else num / den
 
     avg_temp = statistics.mean(recorded_temps)
-    std_dev = statistics.stdev(recorded_temps)
+    try:
+        std_dev = statistics.stdev(recorded_temps)
+    except:
+        std_dev = 1
 
     std_devs_from_mean = temperature - div_0(avg_temp, std_dev)
     std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0 else std_devs_from_mean
