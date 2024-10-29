@@ -97,7 +97,8 @@ while True:
             tempreature, pressure, humidity, altitude = read_data()
             recorded_temps.append(temperature)
         except:
-            terminate('BME280 /nERROR')
+            raise
+            terminate('BME280 \n ERROR')
     
         ### update the background colour based on the current temp relative to the last 2 mins
         if len(recorded_temps) > 120:
@@ -115,4 +116,4 @@ while True:
     
         time.sleep(1)
     except KeyboardInterrupt:
-        terminate('keyboard /ninterrupt')
+        terminate('keyboard \ninterrupt')
