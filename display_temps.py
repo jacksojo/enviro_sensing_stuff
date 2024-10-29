@@ -63,17 +63,21 @@ while True:
     if len(recorded_temps) > 120:
         recorded_temps = recorded_temps[-120:]
 
-    avg_temp = statistics.mean(recorded_temps)
-    min_temp = min(recorded_temps)
-    max_temp = max(recorded_temps)
-
     def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
+    avg_temp = statistics.mean(recorded_temps)
+    std_dev = statistics.stddev(recorded_temps)
+
+    std_devs_from_mean = temperature - div_0(avg_temp, std_dev)
+    std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0
+    amplitude = int(255 / std_devs_from_mean / 3)
+    amplitude = 255 if amplitude > 255
+
     if temperature > avg_temp: # closer to max = more red
-        colour = (int(div_0(temperature - avg_temp, max_temp - avg_temp) * 255), 0, 0)
+        colour = (amplitude, 0, 0)
     elif temperature < avg_temp: # closer to min = more blue
-        colour = (0, 0, int(div_0(avg_temp - temperature, avg_temp - min_temp) * 255))
+        colour = (0, 0, amplitude)
     else:
         colour = (0, 0, 0)
 
