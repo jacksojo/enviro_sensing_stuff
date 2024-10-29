@@ -63,7 +63,7 @@ def read_data():
     return _temperature, _pressure, _humidity, _altitude
 
 def terminate(error_text=' '):
-    disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
+    disp.reset()
     draw.text((5, 5), error_text, font=font, fill=(255,255,255))
     disp.display(img)
     time.sleep(3)
