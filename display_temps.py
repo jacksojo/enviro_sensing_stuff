@@ -118,3 +118,5 @@ while True:
         time.sleep(1)
     except KeyboardInterrupt:
         terminate('keyboard \ninterrupt')
+    except:
+        terminate()
