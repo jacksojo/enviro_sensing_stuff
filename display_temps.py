@@ -74,7 +74,7 @@ while True:
 
     std_devs_from_mean = temperature - div_0(avg_temp, std_dev)
     std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0 else std_devs_from_mean
-    amplitude = int(div_0(255, std_devs_from_mean))
+    amplitude = int(div_0(255, std_devs_from_mean) * 2)
     amplitude = 255 if amplitude > 255 else amplitude
 
     if temperature > avg_temp: # closer to max = more red
