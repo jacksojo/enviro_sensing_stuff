@@ -50,56 +50,69 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 recorded_temps = []
 
-while True:
-
-    ### try read from the sensor, display an error message if there is an error
-    try:
-        temperature = bme280.get_temperature()
-        recorded_temps.append(temperature)
-        pressure = bme280.get_pressure()
-        humidity = bme280.get_humidity()
-        print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%")
-        logging.info(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}% {str(datetime.datetime.today())}")
-    except:
-        print('error reading data from bme280')
-        draw.text((5, 5), "BME280 \nERROR", font=font, fill=(255,255,255))
-        disp.display(img)
-        time.sleep(3)
-        disp.reset() ### not sure this does anything?
-        disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
-        sys.exit()
-
-    ### update the background colour based on the current temp relative to the last 2 mins
-    if len(recorded_temps) > 120:
-        recorded_temps = recorded_temps[-120:]
-
-    def div_0(num, den): ### returns 0 if den is 0
+def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
+def read_data():
+    _temperature = bme280.get_temperature()
+    _pressure = bme280.get_pressure()
+    _humidity = bme280.get_humidity()
+    _altitude = bme280.get_altitude
+    print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}% {_altitude:05.2}m")
+    logging.info(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}% {_altitude:05.2}m {str(datetime.datetime.today())}")
+    return _temperature, _pressure, _humidity, _altitude
+
+def terminate(error_text=' '):
+    draw.text((5, 5), error_text, font=font, fill=(255,255,255))
+    disp.display(img)
+    time.sleep(3)
+    disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
+    disp.set_backlight(0)
+    sys.exit()
+
+def set_background_colour(temp):
     avg_temp = statistics.mean(recorded_temps)
     try:
         std_dev = statistics.stdev(recorded_temps)
     except:
         std_dev = 1
 
-    std_devs_from_mean = div_0(temperature - avg_temp, std_dev)
+    std_devs_from_mean = div_0(temp - avg_temp, std_dev)
     std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0 else std_devs_from_mean
     amplitude = int(255 * std_devs_from_mean / 3)
     amplitude = 255 if amplitude > 255 else amplitude
 
-    if temperature > avg_temp: # closer to max = more red
-        colour = (amplitude, 20, 0)
+    if temp > avg_temp: # closer to max = more red
+        return (amplitude, 20, 0)
     elif temperature < avg_temp: # closer to min = more blue
-        colour = (0, 20, amplitude)
+        return (0, 20, amplitude)
     else:
-        colour = (0, 20, 0)
+        return (0, 20, 0)
 
-    draw.rectangle((0, 0, WIDTH, HEIGHT), tuple(colour))
+while True:
 
-    ### add in the temperature text
-    draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-    draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-    draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-    disp.display(img)
-
-    time.sleep(1)
+    try:
+        ### try read from the sensor, display an error message if there is an error
+        try:
+            tempreature, pressure, humidity, altitude = read_data()
+            recorded_temps.append(temperature)
+        except:
+            terminate('BME280 /nERROR')
+    
+        ### update the background colour based on the current temp relative to the last 2 mins
+        if len(recorded_temps) > 120:
+            recorded_temps = recorded_temps[-120:]
+    
+        background_colour = set_background_colour(temperature)
+    
+        draw.rectangle((0, 0, WIDTH, HEIGHT), background_colour)
+    
+        ### add in the temperature text
+        draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
+        draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
+        draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
+        disp.display(img)
+    
+        time.sleep(1)
+    except KeyboardInterrupt:
+        terminate('keyboard /ninterrupt')
