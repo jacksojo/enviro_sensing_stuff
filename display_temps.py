@@ -1,13 +1,22 @@
 #!/usr/bin/env python
 
 import time
+import datetime
 from smbus2 import SMBus
 import sys
 from PIL import Image, ImageDraw, ImageFont
 import statistics
+import logging
 
 from bme280 import BME280
 import st7789
+
+# setup logging
+logging.basicConfig(filename='temps_'+str(datetime.date.today())+'.log',
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.INFO)
 
 
 # Initialise the BME280
@@ -50,6 +59,7 @@ while True:
         pressure = bme280.get_pressure()
         humidity = bme280.get_humidity()
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%")
+        logging.info(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}% {str(datetime.datetime.today())}")
     except:
         print('error reading data from bme280')
         draw.text((5, 5), "BME280 \nERROR", font=font, fill=(255,255,255))
