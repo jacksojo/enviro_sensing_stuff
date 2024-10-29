@@ -70,7 +70,7 @@ while True:
     std_dev = statistics.stddev(recorded_temps)
 
     std_devs_from_mean = temperature - div_0(avg_temp, std_dev)
-    std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0
+    std_devs_from_mean = std_devs_from_mean * -1 if std_devs_from_mean < 0 else std_devs_from_mean
     amplitude = int(255 / std_devs_from_mean / 3)
     amplitude = 255 if amplitude > 255 else amplitude
 
