@@ -11,6 +11,13 @@ import logging
 from bme280 import BME280
 import st7789
 
+# check if calibration Q value is passed
+try:
+  QNH_VALUE = int(sys.argv[1])
+except:
+  QNH_VALUE = 1010
+print(f'Running with QNH of {QNH_VALUE}')
+
 # setup logging
 logging.basicConfig(filename='temps_'+str(datetime.date.today())+'.log',
                     filemode='a',
@@ -54,7 +61,7 @@ def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
 def read_data():
-    _altitude = bme280.get_altitude()
+    _altitude = bme280.get_altitude(qnh=QNH_VALUE)
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
@@ -89,7 +96,10 @@ def set_background_colour(temp):
         return (0, 20, amplitude)
     else:
         return (0, 20, 0)
-
+      
+### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE      
+_altitude = bme280.get_altitude(qnh=QNH_VALUE)
+time.sleep(1)
 while True:
 
     try:
