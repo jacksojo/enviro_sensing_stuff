@@ -256,7 +256,7 @@ class BME280:
         self.update_sensor()
         return self.humidity
 
-    def get_altitude(self, qnh=1010.00):
+    def get_altitude(self, qnh=1012.00):
         self.update_sensor()
         pressure = self.get_pressure()
         altitude = 44330.0 * (1.0 - pow(pressure / qnh, (1.0 / 5.255)))
