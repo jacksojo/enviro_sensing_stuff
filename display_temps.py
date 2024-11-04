@@ -54,10 +54,10 @@ def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
 def read_data():
+    _altitude = bme280.get_altitude()
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
-    _altitude = bme280.get_altitude()
     print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}% {_altitude:05.2f}m")
     logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())}")
     return _temperature, _pressure, _humidity, _altitude
