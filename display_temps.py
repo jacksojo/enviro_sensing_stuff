@@ -16,6 +16,7 @@ try:
   QNH_VALUE = int(sys.argv[1])
 except:
   QNH_VALUE = 1010
+  print('using default QNH value. go to https://metar-taf.com/CAE2 to find a real value')
 print(f'Running with QNH of {QNH_VALUE}')
 
 # setup logging
