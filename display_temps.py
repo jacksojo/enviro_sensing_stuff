@@ -126,7 +126,7 @@ while True:
         draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
         disp.display(img)
     
-        time.sleep(1)
+        time.sleep(10)
     except KeyboardInterrupt:
         terminate('keyboard \ninterrupt')
     except Exception as e:
