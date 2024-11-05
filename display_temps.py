@@ -64,6 +64,7 @@ def div_0(num, den): ### returns 0 if den is 0
 
 def get_metar(icao_id='CYXC'):
     raw = requests.get('https://aviationweather.gov/api/data/metar?ids={icao_id}')
+    print(raw.text)
     components = raw.text.split(' ')
     for c in components:
         if c[0] == 'A':
@@ -72,7 +73,7 @@ def get_metar(icao_id='CYXC'):
     return q_value
 
 def read_data():
-    _altitude = bme280.get_altitude(qnh=QNH_VALUE)
+    _altitude = bme280.get_altitude(qnh=QNH)
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
