@@ -110,7 +110,7 @@ def set_background_colour(temp):
         return (0, 20, 0)
       
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE      
-_altitude = bme280.get_altitude(qnh=QNH_VALUE)
+_altitude = bme280.get_altitude(qnh=QNH)
 time.sleep(1)
 
 ### to keep track of number of iterations
