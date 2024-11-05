@@ -66,8 +66,8 @@ def get_metar(icao_id='CYXC'):
     raw = requests.get('https://aviationweather.gov/api/data/metar?ids={icao_id}')
     components = raw.text.split(' ')
     for c in components:
-        if c[0] == 'A'
-        a_value = c[1:]
+        if c[0] == 'A':
+          a_value = c[1:]
     q_value = a_value * 33.863886666667
     return q_value
 
