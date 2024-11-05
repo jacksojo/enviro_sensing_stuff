@@ -126,7 +126,7 @@ while True:
     try:
         ### try read from the sensor, display an error message if there is an error
         try:
-            temperature, pressure, humidity, altitude = read_data(QNH)
+            temperature, pressure, humidity, altitude = read_data()
             recorded_temps.append(temperature)
         except:
             raise
