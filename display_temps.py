@@ -12,14 +12,6 @@ import logging
 from bme280 import BME280
 import st7789
 
-# check if calibration Q value is passed
-#try:
-#  QNH_VALUE = int(sys.argv[1])
-#except:
-#  QNH_VALUE = 1010
-#  print('using default QNH value. go to https://metar-taf.com/CAE2 to find a real value')
-#print(f'Running with QNH of {QNH_VALUE}')
-
 # setup logging
 logging.basicConfig(filename='temps_'+str(datetime.date.today())+'.log',
                     filemode='a',
@@ -34,7 +26,6 @@ bme280 = BME280(i2c_dev=bus)
 
 
 # Initialise the st7789
-
 disp = st7789.ST7789(
         height=240,
         rotation=90,
@@ -90,6 +81,7 @@ def terminate(error_text=' '):
     disp.set_backlight(0)
     sys.exit()
 
+### this will change the background colour of the display to match the temperature trend
 def set_background_colour(temp):
     avg_temp = statistics.mean(recorded_temps)
     try:
