@@ -6,18 +6,19 @@ from smbus2 import SMBus
 import sys
 from PIL import Image, ImageDraw, ImageFont
 import statistics
+import requests
 import logging
 
 from bme280 import BME280
 import st7789
 
 # check if calibration Q value is passed
-try:
-  QNH_VALUE = int(sys.argv[1])
-except:
-  QNH_VALUE = 1010
-  print('using default QNH value. go to https://metar-taf.com/CAE2 to find a real value')
-print(f'Running with QNH of {QNH_VALUE}')
+#try:
+#  QNH_VALUE = int(sys.argv[1])
+#except:
+#  QNH_VALUE = 1010
+#  print('using default QNH value. go to https://metar-taf.com/CAE2 to find a real value')
+#print(f'Running with QNH of {QNH_VALUE}')
 
 # setup logging
 logging.basicConfig(filename='temps_'+str(datetime.date.today())+'.log',
@@ -61,6 +62,15 @@ recorded_temps = []
 def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
+def get_metar(icao_id='CYXC'):
+    raw = requests.get('https://aviationweather.gov/api/data/metar?ids={icao_id}')
+    components = raw.text.split(' ')
+    for c in components:
+        if c[0] == 'A'
+        a_value = c[1:]
+    q_value = a_value * 33.863886666667
+    return q_value
+
 def read_data():
     _altitude = bme280.get_altitude(qnh=QNH_VALUE)
     _temperature = bme280.get_temperature()
@@ -101,12 +111,18 @@ def set_background_colour(temp):
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE      
 _altitude = bme280.get_altitude(qnh=QNH_VALUE)
 time.sleep(1)
+
+### to keep track of number of iterations
+i=0
 while True:
+    if i % 100 == 0:
+        QNH = get_metar()
+        print('using QNH', QNH)
 
     try:
         ### try read from the sensor, display an error message if there is an error
         try:
-            temperature, pressure, humidity, altitude = read_data()
+            temperature, pressure, humidity, altitude = read_data(QNH)
             recorded_temps.append(temperature)
         except:
             raise
