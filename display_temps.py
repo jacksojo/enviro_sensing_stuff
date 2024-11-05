@@ -69,7 +69,7 @@ def get_metar(icao_id='CYXC'):
     for c in components:
         if c[0] == 'A':
           a_value = float(c[1:])
-    q_value = a_value * 33.863886666667
+    q_value = a_value * .33863886666667 # convert to QNH
     return q_value
 
 def read_data():
