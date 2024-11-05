@@ -62,9 +62,9 @@ recorded_temps = []
 def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
+### ping the US gov's METAR API to get the air pressure at sea level for cranbrook
 def get_metar(icao_id='CYXC'):
     raw = requests.get(f'https://aviationweather.gov/api/data/metar?ids={icao_id}', headers={'connection': 'close'})
-    print(raw.text)
     components = raw.text.split(' ')
     for c in components:
         if c[0] == 'A':
