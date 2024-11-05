@@ -118,7 +118,7 @@ time.sleep(1)
 ### to keep track of number of iterations
 i=1
 while True:
-    if i % 10 == 0:
+    if i % 50 == 0:
         QNH = get_metar()
         print('using QNH', QNH)
     i += 1
