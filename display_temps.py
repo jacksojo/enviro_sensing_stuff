@@ -64,7 +64,7 @@ def div_0(num, den): ### returns 0 if den is 0
 
 def get_metar(icao_id='CYXC'):
     raw = requests.get('https://aviationweather.gov/api/data/metar?ids={icao_id}')
-    print(raw.text())
+    print(raw.text)
     components = raw.text.split(' ')
     for c in components:
         if c[0] == 'A':
