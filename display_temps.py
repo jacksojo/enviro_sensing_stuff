@@ -57,10 +57,13 @@ def div_0(num, den): ### returns 0 if den is 0
 def get_metar(icao_id='CYXC'):
     raw = requests.get(f'https://aviationweather.gov/api/data/metar?ids={icao_id}', headers={'connection': 'close'})
     components = raw.text.split(' ')
-    for c in components:
-        if c[0] == 'A':
-          a_value = float(c[1:])
-    q_value = a_value * .33863886666667 # convert to QNH
+    try:
+        for c in components:
+            if c[0] == 'A':
+                a_value = float(c[1:])
+        q_value = a_value * .33863886666667 # convert to QNH
+    except:
+        q_value = QNH # replace with last value or default
     return q_value
 
 def read_data():
@@ -103,10 +106,7 @@ def set_background_colour(temp):
       
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
 QNH = 1010
-try:
-    QNH = get_metar()
-except:
-    continue
+QNH = get_metar()
 print('using QNH', QNH)
 _altitude = bme280.get_altitude(qnh=QNH)
 time.sleep(1)
@@ -115,10 +115,7 @@ time.sleep(1)
 i=1
 while True:
     if i % 50 == 0:
-        try:
-            QNH = get_metar()
-        except:
-            continue
+        QNH = get_metar()
         print('using QNH', QNH)
     i += 1
 
