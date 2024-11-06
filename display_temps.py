@@ -101,8 +101,12 @@ def set_background_colour(temp):
     else:
         return (0, 20, 0)
       
-### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE      
-QNH = get_metar()
+### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
+QNH = 1010
+try:
+    QNH = get_metar()
+except:
+    continue
 print('using QNH', QNH)
 _altitude = bme280.get_altitude(qnh=QNH)
 time.sleep(1)
@@ -111,7 +115,10 @@ time.sleep(1)
 i=1
 while True:
     if i % 50 == 0:
-        QNH = get_metar()
+        try:
+            QNH = get_metar()
+        except:
+            continue
         print('using QNH', QNH)
     i += 1
 
