@@ -13,15 +13,24 @@ with open(todays_file, 'r') as file:
 
 file.close()
 
+def fix_float(s, chars_to_trim_from_end=None):
+    if chars_to_trim_from_end:
+        s = s[:-chars_to_trim_from_end]
+    if s[0] = '-':
+        s = s[1:]
+        return float(s) * -1
+    else:
+        return float(s)
+
 schema = [
    #['col_name', 'datetype', cleaning_func] 
     ['log_timestamp', 'string', lambda x: x],
     ['log_source', 'string', lambda x: x],
     ['log_level', 'string', lambda x: x],
-    ['temperature_c', 'float', lambda x: x[:-1]],
-    ['pressure_hpa', 'float', lambda x: x[:-3]],
-    ['humidity_%', lambda x: x[:-1]],
-    ['elevation_m', lambda x: x[:-1]],
+    ['temperature_c', 'float', fix_float(args=[1])],
+    ['pressure_hpa', 'float', fix_float(args=[3])],
+    ['humidity_%', fix_float(args=[1])],
+    ['elevation_m', fix_float(args=[1])],
     ['date', 'string', lambda x: x],
     ['time', 'string', lambda x: x]
 ]
@@ -37,4 +46,4 @@ current = df.loc[df.index == df.index.max()]
 
 print(f"Today's high was {high['temperature_c'].values[0]}C at {high['time'].values[0]}")
 print(f"Today's low was {low['temperature_c'].values[0]}C at {low['time'].values[0]}")
-print(f"Right now the temperature is {current['temperature_c'].values[0]}")
+print(f"Right now the temperature is {current['temperature_c'].values[0]} at {current['time'].values[0]}")
