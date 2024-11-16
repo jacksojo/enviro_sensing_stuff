@@ -9,7 +9,7 @@ import statistics
 import requests
 import logging
 import os
-from email.mime.multipart import MIMEMultipart
+from email.mime.multipart import MIMEMultipart, MIMEText
 import smtplib
 
 
@@ -67,6 +67,7 @@ def send_email(content):
     msg['From'] = os.environ['SMTP_USERNAME']
     msg['To'] = os.environ['MY_EMAIL']
     msg['Subject'] = "Temp Sensor Error"
+    msg.attach(MIMEText(content, 'plain'))
 
     # Send email
     with smtplib.SMTP(smtp_server, smtp_port) as smtp:
