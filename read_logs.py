@@ -14,4 +14,4 @@ with open(todays_file, 'r') as file:
 
 print(raw[-1])
 
-f.close()
+file.close()
