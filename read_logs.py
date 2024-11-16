@@ -36,8 +36,8 @@ schema = [
 
 df = pd.DataFrame([x.split() for x in raw], columns=[x[0] for x in schema])
 
-#for i, c in enumerate(df.columns):
-#    df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
+for i, c in enumerate(df.columns):
+    df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
 
 high = df.loc[df['temperature_c'] == df['temperature_c'].max()]
 low = df.loc[df['temperature_c'] == df['temperature_c'].min()]
