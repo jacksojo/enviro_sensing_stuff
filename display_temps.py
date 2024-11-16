@@ -9,6 +9,8 @@ import statistics
 import requests
 import logging
 import os
+from email.mime.multipart import MIMEMultipart
+
 
 from bme280 import BME280
 import st7789
