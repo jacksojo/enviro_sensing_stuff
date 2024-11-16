@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import date
+import re
 
 todays_file = f'logs/temps_{date.today()}.log'
 
@@ -14,13 +15,11 @@ with open(todays_file, 'r') as file:
 file.close()
 
 def fix_float(s, chars_to_trim_from_end=None):
-    if chars_to_trim_from_end:
-        s = s[:-chars_to_trim_from_end]
+    strip_s = re.sub("[^0-9]", "", s)
     if s[0] == '-':
-        s = s[1:]
-        return float(s) * -1
+        return float(strip_s) * -1
     else:
-        return float(s)
+        return float(strip_s)
 
 schema = [
    #['col_name', 'datetype', cleaning_func] 
