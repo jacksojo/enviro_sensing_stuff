@@ -18,10 +18,10 @@ schema = [
     ['log_timestamp', 'string', lambda x: x],
     ['log_source', 'string', lambda x: x],
     ['log_level', 'string', lambda x: x],
-    ['temperature_c', 'float', lambda x: x[:-1]],
-    ['pressure_hpa', 'float', lambda x: x[:-3]],
-    ['humidity_%', lambda x: x[:-1]],
-    ['elevation_m', lambda x: x[:-1]],
+    ['temperature_c', 'float', lambda x: x[:-1].strip()],
+    ['pressure_hpa', 'float', lambda x: x[:-3].strip()],
+    ['humidity_%', lambda x: x[:-1].strip()],
+    ['elevation_m', lambda x: x[:-1].strip()],
     ['date', 'string', lambda x: x],
     ['time', 'string', lambda x: x]
 ]
