@@ -16,7 +16,7 @@ file.close()
 def fix_float(s, chars_to_trim_from_end=None):
     if chars_to_trim_from_end:
         s = s[:-chars_to_trim_from_end]
-    if s[0] = '-':
+    if s[0] == '-':
         s = s[1:]
         return float(s) * -1
     else:
