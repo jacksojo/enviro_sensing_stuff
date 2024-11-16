@@ -18,18 +18,18 @@ schema = [
     ['log_timestamp', 'string', lambda x: x],
     ['log_source', 'string', lambda x: x],
     ['log_level', 'string', lambda x: x],
-    ['temperature_c', 'float', lambda x: x[:-1].strip()],
-    ['pressure_hpa', 'float', lambda x: x[:-3].strip()],
-    ['humidity_%', lambda x: x[:-1].strip()],
-    ['elevation_m', lambda x: x[:-1].strip()],
+    ['temperature_c', 'float', lambda x: x[:-1]],
+    ['pressure_hpa', 'float', lambda x: x[:-3]],
+    ['humidity_%', lambda x: x[:-1]],
+    ['elevation_m', lambda x: x[:-1]],
     ['date', 'string', lambda x: x],
     ['time', 'string', lambda x: x]
 ]
 
 df = pd.DataFrame([x.split() for x in raw], columns=[x[0] for x in schema])
 
-for i, c in enumerate(df.columns):
-    df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
+#for i, c in enumerate(df.columns):
+#    df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
 
 high = df.loc[df['temperature'] == df['temperature'].max()]
 low = df.loc[df['temperature'] == df['temperature'].max()]
