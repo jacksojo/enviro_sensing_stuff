@@ -14,7 +14,7 @@ with open(todays_file, 'r') as file:
 
 file.close()
 
-def fix_float(s, chars_to_trim_from_end=None):
+def fix_float(s):
     strip_s = re.sub("[^0-9]", "", s)
     if s[0] == '-':
         return float(strip_s) * -1
@@ -26,10 +26,10 @@ schema = [
     ['log_timestamp', 'string', lambda x: x],
     ['log_source', 'string', lambda x: x],
     ['log_level', 'string', lambda x: x],
-    ['temperature_c', 'float', fix_float(args=[1])],
-    ['pressure_hpa', 'float', fix_float(args=[3])],
-    ['humidity_%', fix_float(args=[1])],
-    ['elevation_m', fix_float(args=[1])],
+    ['temperature_c', 'float', fix_float],
+    ['pressure_hpa', 'float', fix_float],
+    ['humidity_%', fix_float],
+    ['elevation_m', fix_float],
     ['date', 'string', lambda x: x],
     ['time', 'string', lambda x: x]
 ]
