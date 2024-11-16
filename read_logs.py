@@ -1,5 +1,4 @@
 import pandas as pd
-import glob
 from datetime import date
 
 todays_file = f'logs/temps_{date.today()}.log'
@@ -29,4 +28,13 @@ schema = [
 
 df = pd.DataFrame([x.split() for x in raw], columns=[x[0] for x in schema])
 
-print(df.tail())
+for i, c in enumerate(df.columns):
+    df[col] = df[col].apply(schema[i][2]).astype(schema[i][1])
+
+high = df.loc[df['temperature'] == df['temperature'].max()]
+low = df.loc[df['temperature'] == df['temperature'].max()]
+current = df.loc[df.index == df.index.max()]
+
+print(f"Today's high was {high['temperature'][0]}C at {high['time'][0]}")
+print(f"Today's low was {low['temperature'][0]}C at {low['time'][0]}")
+print(f"Right now the temperature is {current['temperature']}")
