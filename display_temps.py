@@ -13,7 +13,7 @@ from bme280 import BME280
 import st7789
 
 # setup logging
-logging.basicConfig(filename='temps_'+str(datetime.date.today())+'.log',
+logging.basicConfig(filename='logs/temps_'+str(datetime.date.today())+'.log',
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
