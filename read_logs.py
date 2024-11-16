@@ -28,8 +28,8 @@ schema = [
     ['log_level', 'string', lambda x: x],
     ['temperature_c', 'float', fix_float],
     ['pressure_hpa', 'float', fix_float],
-    ['humidity_%', fix_float],
-    ['elevation_m', fix_float],
+    ['humidity_%', 'float', fix_float],
+    ['elevation_m', 'float', fix_float],
     ['date', 'string', lambda x: x],
     ['time', 'string', lambda x: x]
 ]
