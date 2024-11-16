@@ -10,6 +10,7 @@ import requests
 import logging
 import os
 from email.mime.multipart import MIMEMultipart
+import smtplib
 
 
 from bme280 import BME280
