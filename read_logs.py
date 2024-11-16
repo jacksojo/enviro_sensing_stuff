@@ -35,6 +35,6 @@ high = df.loc[df['temperature_c'] == df['temperature_c'].max()]
 low = df.loc[df['temperature_c'] == df['temperature_c'].min()]
 current = df.loc[df.index == df.index.max()]
 
-print(f"Today's high was {high['temperature_c'].values}C at {high['time'].values}")
-print(f"Today's low was {low['temperature_c'].values}C at {low['time'].values}")
-print(f"Right now the temperature is {current['temperature_c'].values}")
+print(f"Today's high was {high['temperature_c'].values[0]}C at {high['time'].values[0]}")
+print(f"Today's low was {low['temperature_c'].values[0]}C at {low['time'].values[0]}")
+print(f"Right now the temperature is {current['temperature_c'].values[0]}")
