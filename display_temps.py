@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 import statistics
 import requests
 import logging
+import os
 
 from bme280 import BME280
 import st7789
@@ -52,6 +53,23 @@ recorded_temps = []
 
 def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
+
+def send_email(content):
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    smtp_username = os.environ['SMTP_USERNAME']
+    smtp_password = os.environ['SMTP_PASSWORD']
+
+    msg = MIMEMultipart()
+    msg['From'] = os.environ['SMTP_USERNAME']
+    msg['To'] = os.environ['MY_EMAIL']
+    msg['Subject'] = "Temp Sensor Error"
+
+    # Send email
+    with smtplib.SMTP(smtp_server, smtp_port) as smtp:
+        smtp.starttls()
+        smtp.login(os.environ['SMTP_USERNAME'], os.environ['SMTP_PASSWORD'])
+        smtp.send_message(msg)
 
 ### ping the US gov's METAR API to get the air pressure at sea level for cranbrook
 def get_metar(icao_id='CYXC'):
@@ -145,6 +163,8 @@ while True:
     
         time.sleep(10)
     except KeyboardInterrupt:
+        send_email("keyboard Interrupt")
         terminate('keyboard \ninterrupt')
     except Exception as e:
+        send_email(e)
         terminate(e)
