@@ -16,6 +16,7 @@ file.close()
 
 def fix_float(s):
     strip_s = re.sub("[^0-9]", "", s)
+    strip_s = strip_s[:8]
     if s[0] == '-':
         return float(strip_s) * -1
     else:
