@@ -171,5 +171,5 @@ while True:
         send_email("keyboard Interrupt")
         terminate('keyboard \ninterrupt')
     except Exception as e:
-        send_email(e)
+        send_email(string(e))
         terminate(e)
