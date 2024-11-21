@@ -167,9 +167,6 @@ while True:
         disp.display(img)
     
         time.sleep(10)
-    except KeyboardInterrupt:
-        send_email("keyboard Interrupt")
-        terminate('keyboard \ninterrupt')
     except Exception as e:
         send_email(string(e))
         terminate(e)
