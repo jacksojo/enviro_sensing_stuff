@@ -168,5 +168,5 @@ while True:
     
         time.sleep(10)
     except Exception as e:
-        send_email(string(e))
+        send_email(str(e))
         terminate(e)
