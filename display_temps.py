@@ -52,6 +52,7 @@ HEIGHT = disp.height
 img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 0, 0))
 draw = ImageDraw.Draw(img)
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 38)
+small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 20)
 
 recorded_temps = []
 
@@ -174,7 +175,7 @@ while True:
         draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
         draw.text((5, 65), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
         draw.text((5, 125), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-        draw.text((5, 185), f"{str(time.now())}", font=font, fill=(255, 255, 255))
+        draw.text((5, 185), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
         disp.display(img)
     
         time.sleep(10)
