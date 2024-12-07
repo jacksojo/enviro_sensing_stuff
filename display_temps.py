@@ -18,11 +18,15 @@ from bme280 import BME280
 import st7789
 
 # setup logging
-logging.basicConfig(filename='logs/temps_'+str(datetime.date.today())+'.log',
-                    filemode='a',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.INFO)
+def setup_logging():
+    logging.basicConfig(filename='logs/temps_'+str(today)+'.log',
+                        filemode='a',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.INFO)
+
+today = datetime.date.today()
+setup_logging()
 
 
 # Initialise the BME280
@@ -145,6 +149,13 @@ time.sleep(1)
 ### to keep track of number of iterations
 i=1
 while True:
+
+    ## if it has turned into tomorrow start a new log file
+    if datetime.date.today() > today:
+        today = datetime.date.today()
+        setup_logging()
+
+    ## periodically check if there's a new METAR report
     if i % 50 == 0:
         try:
           QNH = get_metar()
