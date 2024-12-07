@@ -95,6 +95,8 @@ def read_data():
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
+    if not QNH:
+      _altitude = ' '
     print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}% {_altitude:05.2f}m")
     logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())}")
     return _temperature, _pressure, _humidity, _altitude
@@ -129,18 +131,26 @@ def set_background_colour(temp):
         return (0, 20, 0)
       
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
-QNH = 1010
-QNH = get_metar()
-print('using QNH', QNH)
-_altitude = bme280.get_altitude(qnh=QNH)
+QNH = 0
+try:
+  QNH = get_metar()
+  print('using QNH', QNH)
+  _altitude = bme280.get_altitude(qnh=QNH)
+except:
+  print('QNH error')
+  _altitude = bme280.get_altitude(qnh=0)
 time.sleep(1)
 
 ### to keep track of number of iterations
 i=1
 while True:
     if i % 50 == 0:
-        QNH = get_metar()
-        print('using QNH', QNH)
+        try:
+          QNH = get_metar()
+          print('using QNH', QNH)
+        except:
+          print('error getting METAR')
+          QNH = None
     i += 1
 
     try:
@@ -162,8 +172,9 @@ while True:
     
         ### add in the temperature text
         draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-        draw.text((5, 85), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-        draw.text((5, 165), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
+        draw.text((5, 65), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
+        draw.text((5, 125), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
+        draw.text((5, 185), f"{str(time.now())}", font=font, fill=(255, 255, 255))
         disp.display(img)
     
         time.sleep(10)
