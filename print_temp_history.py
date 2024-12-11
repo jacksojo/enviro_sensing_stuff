@@ -53,7 +53,7 @@ week_min = min([x[1] for x in date_ranges])
 week_max = max(x[2] for x in date_ranges)
 degrees_diff = math.floor(week_max) - math.floor(week_min)
 
-for deg in range(degrees_diff):
+for deg in range(degrees_diff+1):
     row = '  '
 
     for d in date_ranges:
