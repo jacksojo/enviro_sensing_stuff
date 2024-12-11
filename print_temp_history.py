@@ -41,17 +41,13 @@ df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], col
 for i, c in enumerate(df.columns):
     df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
 
-print(df)
-
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
 for d in df['date'].sort_values().unique()[-8:]:
     date_min = df['temperature_c'].loc[df['date'] == d].min()
     date_max = df['temperature_c'].loc[df['date'] == d].max()
-    print(date_min, date_max)
-    print(type(date_min))
-    date_ranges.append([d.date, date_min, date_max])
+    date_ranges.append([d.date(), date_min, date_max])
 
 week_min = min([x[1] for x in date_ranges])
 week_max = max(x[2] for x in date_ranges)
@@ -69,7 +65,7 @@ for deg in range(degrees_diff):
             s = ''
         row += s
         row += ''.join([' ' for x in range(10-len(s))])
-    print(s)
+    print(row)
 
 print(''.join([str(d[0]) for d in date_ranges]))
             
