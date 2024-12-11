@@ -41,8 +41,8 @@ other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
 for d in df['date'].sort_values().unique()[-8:]:
-    date_min = df['date'].loc[df['date'] == d].min()
-    date_max = df['date'].loc[df['date'] == d].max()
+    date_min = df['temperature_c'].loc[df['date'] == d].min()
+    date_max = df['temperature_c'].loc[df['date'] == d].max()
     print(date_min, date_max)
     print(type(date_min))
     date_ranges.append([d, date_min, date_max])
