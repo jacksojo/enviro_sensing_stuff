@@ -45,7 +45,7 @@ for i, c in enumerate(df.columns):
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
-for d in df['date'].sort_values().unique()[-14:]:
+for d in df['date'].sort_values().unique()[-7:]:
     date_min = df['temperature_c'].loc[df['date'] == d].min()
     date_max = df['temperature_c'].loc[df['date'] == d].max()
     date_ranges.append([d.date(), date_min, date_max])
