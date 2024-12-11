@@ -51,7 +51,7 @@ for d in df['date'].sort_values().unique()[-8:]:
     date_max = df['temperature_c'].loc[df['date'] == d].max()
     print(date_min, date_max)
     print(type(date_min))
-    date_ranges.append([d.dt.date, date_min, date_max])
+    date_ranges.append([d.date, date_min, date_max])
 
 week_min = min([x[1] for x in date_ranges])
 week_max = max(x[2] for x in date_ranges)
