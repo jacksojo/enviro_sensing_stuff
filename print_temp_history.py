@@ -35,7 +35,7 @@ schema = [
     ['time', 'string', lambda x: x]
 ]
 
-df = pd.DataFrame([x.split() for x in raw], columns=[x[0] for x in schema])
+df = pd.DataFrame([x.split() for x in raw][0:len(schema)], columns=[x[0] for x in schema])
 
 print(df.head())
 
