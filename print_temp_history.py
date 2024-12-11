@@ -54,6 +54,7 @@ week_min = min([x[1] for x in date_ranges])
 week_max = max(x[2] for x in date_ranges)
 degrees_diff = math.floor(week_max) - math.floor(week_min)
 
+print(' ')
 for deg in range(degrees_diff+1):
     row = '  '
 
@@ -69,7 +70,7 @@ for deg in range(degrees_diff+1):
         row += s
         row += ''.join([' ' for x in range(12-len(s))])
     print(row)
-
+print(' ')
 row = '  '
 for d in date_ranges:
     weekday = calendar.day_name[d[0].weekday()]
