@@ -75,10 +75,12 @@ for d in date_ranges:
     weekday = calendar.day_name[d[0].weekday()]
     row += weekday
     row += ''.join([' ' for x in range(12-len(weekday))])
+print(row)
 
 row = '  '
 for d in date_ranges:
     datestring = str(d[0])
     row += datestring
     row += ''.join([' ' for x in range(12-len(datestring))])
+print(row)
         
