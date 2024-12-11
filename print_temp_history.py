@@ -64,10 +64,10 @@ for deg in range(degrees_diff):
         else:
             s = ''
         row += s
-        row += ''.join([' ' for x in range(10-len(s))])
+        row += ''.join([' ' for x in range(12-len(s))])
     print(row)
 
-print(''.join([str(d[0]) for d in date_ranges]))
+print('  '.join([str(d[0]) for d in date_ranges]))
             
         
 
