@@ -80,5 +80,5 @@ row = '  '
 for d in date_ranges:
     datestring = str(d[0])
     row += datestring
-    row += ''.join([' ' for x in range(12-len(datesting))])
+    row += ''.join([' ' for x in range(12-len(datestring))])
         
