@@ -43,6 +43,8 @@ date_ranges = []
 for d in df['date'].sort_values().unique()[-8:]:
     date_min = df['date'].loc[df['date'] == d].min()
     date_max = df['date'].loc[df['date'] == d].max()
+    print(date_min, date_max)
+    print(type(date_min))
     date_ranges.append([d, date_min, date_max])
 
 week_min = min([x[1] for x in date_ranges])
