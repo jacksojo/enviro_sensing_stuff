@@ -69,6 +69,8 @@ for deg in range(degrees_diff+1):
             s = ''
         row += s
         row += ''.join([' ' for x in range(12-len(s))])
+        if math.floor(week_max) - deg == 0:
+            row.replace('  ', '. ')
     print(row)
 print(' ')
 row = '  '
