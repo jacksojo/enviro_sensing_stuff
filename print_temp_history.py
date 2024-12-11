@@ -14,6 +14,11 @@ for file in files:
         for line in f:
             raw.append(line)
 
+def fix_float(s):
+    strip_s = re.sub("[^0-9].-", "", s)
+    strip_s = strip_s[:8]
+    return float(strip_s)
+
 schema = [
    #['col_name', 'datetype', cleaning_func] 
     ['log_timestamp', 'string', lambda x: x],
