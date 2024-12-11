@@ -41,6 +41,8 @@ df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], col
 for i, c in enumerate(df.columns):
     df[c] = df[c].apply(schema[i][2]).astype(schema[i][1])
 
+print(df)
+
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
