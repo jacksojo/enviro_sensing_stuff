@@ -19,15 +19,13 @@ import st7789
 
 # setup logging
 def setup_logging():
-    logging.basicConfig(filename='logs/temps_'+today+'.log',
+    logging.basicConfig(filename='logs/temps_'+str(datetime.date.today())+'.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
                         level=logging.INFO)
 
-today = str(datetime.date.today())
 setup_logging()
-
 
 # Initialise the BME280
 bus = SMBus(1)
@@ -149,11 +147,7 @@ time.sleep(1)
 ### to keep track of number of iterations
 i=1
 while True:
-
-    ## if it has turned into tomorrow start a new log file
-    if str(datetime.date.today()) > today:
-        today = str(datetime.date.today())
-        setup_logging()
+    setup_logging()
 
     ## periodically check if there's a new METAR report
     if i % 50 == 0:
