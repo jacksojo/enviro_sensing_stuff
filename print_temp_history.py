@@ -1,5 +1,6 @@
 import datetime
 import glob
+import pandas as pd
 
 file_location = 'logs/'
 
