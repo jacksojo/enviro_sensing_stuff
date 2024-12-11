@@ -35,7 +35,7 @@ schema = [
     ['time', 'timestamp', lambda x: x]
 ]
 
-df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema))], columns=[x[0] for x in schema])
+df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], columns=[x[0] for x in schema])
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
  
