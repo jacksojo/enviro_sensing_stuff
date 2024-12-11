@@ -37,6 +37,7 @@ schema = [
 ]
 
 df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], columns=[x[0] for x in schema])
+print(df.dtypes)
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
