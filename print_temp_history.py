@@ -3,6 +3,7 @@ import glob
 import pandas as pd
 import math
 import re
+import calendar
 
 file_location = 'logs/'
 
@@ -69,11 +70,15 @@ for deg in range(degrees_diff+1):
         row += ''.join([' ' for x in range(12-len(s))])
     print(row)
 
-print('  '.join([str(d[0]) for d in date_ranges]))
-            
+row = '  '
+for d in date_ranges:
+    weekday = calendar.day_name[d[0].weekday()]
+    row += weekday
+    row += ''.join([' ' for x in range(12-len(weekday))])
+
+row = '  '
+for d in date_ranges:
+    datestring = str(d[0])
+    row += datestring
+    row += ''.join([' ' for x in range(12-len(datesting))])
         
-
- 
-
-print(df.head())
-
