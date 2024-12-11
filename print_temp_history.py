@@ -61,7 +61,7 @@ for deg in range(degrees_diff):
             s = str(round(d[2],2))
         elif math.floor(d[1]) == math.floor(week_max) - deg:
             s = str(round(d[1],2))
-        elif d[1] < deg and d[2] > deg:
+        elif d[1] < week_max - deg and d[2] > week_max - deg:
             s = '  |'
         else:
             s = ''
