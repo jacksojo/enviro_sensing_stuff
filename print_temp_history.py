@@ -1,6 +1,7 @@
 import datetime
 import glob
 import pandas as pd
+import math
 
 file_location = 'logs/'
 
@@ -37,6 +38,34 @@ schema = [
 
 df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], columns=[x[0] for x in schema])
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
+
+date_ranges = []
+for d in df['date'].sort_values().unique()[-8:]:
+    date_min = df['date'].loc[df['date'] == d].min()
+    date_max = df['date'].loc[df['date'] == d].max()
+    date_ranges.append([d, date_min, date_max])
+
+week_min = min([x[1] for x in date_ranges])
+week_max = max(x[2] for x in date_ranges)
+degrees_diff = math.floor(week_max) - math.floor(week_min)
+
+for deg in range(degrees_dif):
+    row = '  '
+
+    for d in date_ranges:
+        if math.floor(d[2]) == math.floor(week_max) - deg:
+            s = str(round(d[2],2))
+        elif math.floor(d[1]) == math.floor(week_max) - deg:
+            s = str(round(d[1],2))
+        else:
+            s = ''
+        row += s
+        row += ''.join([' ' for x in range(10-len(s))])
+    print(s)
+
+print(''.join([str(d[0]) for d in date_ranges]))
+            
+        
 
  
 
