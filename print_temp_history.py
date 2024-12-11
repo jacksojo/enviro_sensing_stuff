@@ -6,6 +6,8 @@ file_location = 'logs/'
 
 files = glob.glob(file_location+'*')
 
+files = [f for f in files if 'temps_2024-11' not in f]
+
 raw = []
 
 # Open the file in read mode
