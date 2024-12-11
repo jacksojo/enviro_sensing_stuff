@@ -31,11 +31,14 @@ schema = [
     ['pressure_hpa', 'float', fix_float],
     ['humidity_%', 'float', fix_float],
     ['elevation_m', 'float', fix_float],
-    ['date', 'string', lambda x: x],
-    ['time', 'string', lambda x: x]
+    ['date', 'date', lambda x: x],
+    ['time', 'timestamp', lambda x: x]
 ]
 
-df = pd.DataFrame([x.split() for x in raw][0:len(schema)], columns=[x[0] for x in schema])
+df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema))], columns=[x[0] for x in schema])
+other_rows = [x for x in raw if len(x.split()) != len(schema)]
+
+ 
 
 print(df.head())
 
