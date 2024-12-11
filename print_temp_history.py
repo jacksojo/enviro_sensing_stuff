@@ -33,8 +33,8 @@ schema = [
     ['pressure_hpa', 'float', fix_float],
     ['humidity_%', 'float', fix_float],
     ['elevation_m', 'float', fix_float],
-    ['date', 'date', lambda x: x],
-    ['time', 'timestamp', lambda x: x]
+    ['date', 'datetime64[ns]', lambda x: x],
+    ['time', 'string', lambda x: x]
 ]
 
 df = pd.DataFrame([x.split() for x in raw if len(x.split()) == len(schema)], columns=[x[0] for x in schema])
@@ -44,7 +44,7 @@ for i, c in enumerate(df.columns):
 other_rows = [x for x in raw if len(x.split()) != len(schema)]
 
 date_ranges = []
-for d in df['date'].sort_values().unique()[-8:]:
+for d in df['date'].dt.date.sort_values().unique()[-8:]:
     date_min = df['temperature_c'].loc[df['date'] == d].min()
     date_max = df['temperature_c'].loc[df['date'] == d].max()
     print(date_min, date_max)
