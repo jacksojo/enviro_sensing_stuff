@@ -21,7 +21,7 @@ for file in files:
             raw.append(line)
 
 def fix_float(s):
-    strip_s = re.sub("[^0-9].-", "", s)
+    strip_s = re.sub("[^0-9].-C", "", s)
     strip_s = strip_s[:8]
     return float(strip_s)
 
