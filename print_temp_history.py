@@ -21,9 +21,12 @@ for file in files:
             raw.append(line)
 
 def fix_float(s):
-    strip_s = re.sub("[^0-9].-C", "", s)
-    strip_s = strip_s[:8]
-    return float(strip_s)
+    # Extract numeric parts (including decimal points and optional negatives)
+    match = re.search(r"-?\d+(\.\d+)?", s)
+    if match:
+        return float(match.group())
+    else:
+        raise ValueError(f"Invalid input: no valid float in '{s}'")
 
 schema = [
    #['col_name', 'datetype', cleaning_func] 
