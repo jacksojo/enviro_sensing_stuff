@@ -10,6 +10,7 @@ import requests
 import logging
 import os
 from send_email import send_email
+from get_local_weather import get_local_weather
 
 
 from bme280 import BME280
@@ -64,8 +65,9 @@ def read_data():
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
+    _temp_from_api = current_weather['current']['temp_c']
     print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}%")
-    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())}")
+    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())} local_temp:{_temp_from_api}°C")
     return _temperature, _pressure, _humidity
 
 def terminate(error_text=' '):
@@ -104,6 +106,9 @@ _temperature = bme280.get_temperature()
 i=1
 while True:
     setup_logging()
+
+    if i+9 % 10 == 0:
+        current_weather = get_local_weather()
     
     i += 1
 
