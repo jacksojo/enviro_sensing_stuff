@@ -9,9 +9,6 @@ import statistics
 import requests
 import logging
 import os
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
 from send_email import send_email
 
 
