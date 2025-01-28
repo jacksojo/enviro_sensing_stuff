@@ -11,6 +11,6 @@ raw = requests.get(url, headers={'connection': 'close'})
 raw_json = raw.json
 
 try:
-  print(raw)
+  print(raw_json)
 except Exception as e:
   raise e
