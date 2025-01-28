@@ -98,7 +98,7 @@ def set_background_colour(temp):
         return (0, 20, 0)
       
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
- _temperature = bme280.get_temperature()
+_temperature = bme280.get_temperature()
 
 ### to keep track of number of iterations
 i=1
