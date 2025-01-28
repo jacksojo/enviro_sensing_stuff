@@ -8,7 +8,7 @@ url = f'http://api.weatherapi.com/v1/current.json?key={api_key}&q={postcode}&aqi
 
 raw = requests.get(url, headers={'connection': 'close'})
 
-raw_json = raw.json
+raw_json = raw.json()
 
 try:
   print(raw_json)
