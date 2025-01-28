@@ -60,11 +60,12 @@ def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
 def read_data():
+    _altitude = '000'
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
     print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}%")
-    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {"000"}m {str(datetime.datetime.today())}")
+    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())}")
     return _temperature, _pressure, _humidity
 
 def terminate(error_text=' '):
