@@ -59,34 +59,17 @@ recorded_temps = []
 def div_0(num, den): ### returns 0 if den is 0
         return 0 if den == 0 else num / den
 
-### ping the US gov's METAR API to get the air pressure at sea level for cranbrook
-def get_metar(icao_id='CYXC'):
-    raw = requests.get(f'https://aviationweather.gov/api/data/metar?ids={icao_id}', headers={'connection': 'close'})
-    components = raw.text.split(' ')
-    try:
-        for c in components:
-            if c[0] == 'A':
-                a_value = float(c[1:])
-                break
-        q_value = a_value * .33863886666667 # convert to QNH
-    except:
-        q_value = QNH # replace with last value or default
-    return q_value
-
 def read_data():
-    _altitude = bme280.get_altitude(qnh=QNH)
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
-    if not QNH:
-      _altitude = ' '
-    print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}% {_altitude:05.2f}m")
-    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())}")
-    return _temperature, _pressure, _humidity, _altitude
+    print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}%")
+    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {"000"}m {str(datetime.datetime.today())}")
+    return _temperature, _pressure, _humidity
 
 def terminate(error_text=' '):
     disp.reset()
-    draw.text((5, 5), error_text, font=font, fill=(255,255,255))
+    draw.text((5, 5), repr(error_text), font=font, fill=(255,255,255))
     disp.display(img)
     time.sleep(3)
     disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
@@ -114,37 +97,22 @@ def set_background_colour(temp):
         return (0, 20, 0)
       
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
-QNH = 0
-try:
-  QNH = get_metar()
-  print('using QNH', QNH)
-  _altitude = bme280.get_altitude(qnh=QNH)
-except:
-  print('QNH error')
-  _altitude = bme280.get_altitude(qnh=0)
-time.sleep(1)
+ _temperature = bme280.get_temperature()
 
 ### to keep track of number of iterations
 i=1
 while True:
     setup_logging()
-
-    ## periodically check if there's a new METAR report
-    if i % 50 == 0:
-        try:
-          QNH = get_metar()
-          print('using QNH', QNH)
-        except:
-          print('error getting METAR')
-          QNH = None
+    
     i += 1
 
     try:
         ### try read from the sensor, display an error message if there is an error
         try:
-            temperature, pressure, humidity, altitude = read_data()
+            temperature, pressure, humidity = read_data()
             recorded_temps.append(temperature)
-        except:
+        except Exception as e:
+            send_email(e)
             raise
             terminate('BME280 \n ERROR')
     
@@ -165,5 +133,5 @@ while True:
     
         time.sleep(10)
     except Exception as e:
-        send_email(e.args[0])
+        send_email(e)
         terminate(e)
