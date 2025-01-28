@@ -102,12 +102,14 @@ def set_background_colour(temp):
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
 _temperature = bme280.get_temperature()
 
+current_weather = get_local_weather()
+
 ### to keep track of number of iterations
 i=1
 while True:
     setup_logging()
 
-    if i+9 % 10 == 0:
+    if i % 10 == 0:
         current_weather = get_local_weather()
     
     i += 1
