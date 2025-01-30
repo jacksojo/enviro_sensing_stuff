@@ -1,6 +1,6 @@
 import requests
 import os
-import send_email
+from send_email import send_email
 
 postcode = 'V1A2Y9'
 api_key = os.environ['FREE_WEATHER_API_KEY']
