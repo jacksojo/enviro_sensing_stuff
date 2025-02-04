@@ -133,10 +133,10 @@ while True:
         draw.rectangle((0, 0, WIDTH, HEIGHT), background_colour)
     
         ### add in the temperature text
-        draw.text((5, 5), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-        draw.text((5, 65), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-        draw.text((5, 125), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-        draw.text((5, 185), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
+        draw.text((5, 15), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
+        draw.text((5, 75), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
+        draw.text((5, 135), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
+        draw.text((5, 195), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
         disp.display(img)
     
         time.sleep(10)
