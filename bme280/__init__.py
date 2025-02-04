@@ -200,7 +200,7 @@ class BME280:
             ),
         )
 
-    def setup(self, mode="normal", temperature_oversampling=16, pressure_oversampling=16, humidity_oversampling=16, temperature_standby=500):
+    def setup(self, mode="normal", temperature_oversampling=1, pressure_oversampling=1, humidity_oversampling=1, temperature_standby=0):
         if self._is_setup:
             return
         self._is_setup = True
