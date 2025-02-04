@@ -135,9 +135,9 @@ while True:
     
         ### add in the temperature text
         draw.text((5, 15), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-        draw.text((5, 75), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-        draw.text((5, 135), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-        draw.text((5, 175), f"{temp_from_api:05.2f}°C", font=small_font, fill=(255, 255, 255))
+        draw.text((5, 55), f"{temp_from_api:05.2f}°C in town", font=small_font, fill=(255, 255, 255))
+        draw.text((5, 95), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
+        draw.text((5, 155), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
         draw.text((5, 215), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
         disp.display(img)
     
