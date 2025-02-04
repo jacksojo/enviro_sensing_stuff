@@ -225,7 +225,7 @@ class BME280:
 
         self._bme280.set("CTRL_MEAS", mode=mode, osrs_t=temperature_oversampling, osrs_p=pressure_oversampling)
 
-        self._bme280.set("CONFIG", t_sb=temperature_standby, filter=2)
+        self._bme280.set("CONFIG", t_sb=temperature_standby, filter=0)
 
         self.calibration.set_from_namedtuple(self._bme280.get("CALIBRATION"))
         self.calibration.set_from_namedtuple(self._bme280.get("CALIBRATION2"))
