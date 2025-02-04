@@ -68,8 +68,9 @@ def read_data():
     _temp_from_api = current_weather['current']['temp_c']
     print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}%")
     logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {_altitude}m {str(datetime.datetime.today())} local_temp:{_temp_from_api}°C")
-    return _temperature, _pressure, _humidity
+    return _temperature, _pressure, _humidity, _temp_from_api
 
+# I don't think this works properly
 def terminate(error_text=' '):
     disp.reset()
     draw.text((5, 5), repr(error_text), font=font, fill=(255,255,255))
@@ -117,7 +118,7 @@ while True:
     try:
         ### try read from the sensor, display an error message if there is an error
         try:
-            temperature, pressure, humidity = read_data()
+            temperature, pressure, humidity, temp_from_api = read_data()
             recorded_temps.append(temperature)
         except Exception as e:
             send_email(e)
@@ -136,7 +137,8 @@ while True:
         draw.text((5, 15), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
         draw.text((5, 75), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
         draw.text((5, 135), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-        draw.text((5, 195), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
+        draw.text((5, 175), f"{temp_from_api:05.2f}°C", font=small_font, fill=(255, 255, 255))
+        draw.text((5, 215), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
         disp.display(img)
     
         time.sleep(10)
