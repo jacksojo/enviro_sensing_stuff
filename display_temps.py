@@ -110,7 +110,7 @@ i=1
 while True:
     setup_logging()
 
-    if i % 10 == 0:
+    if i % 1 == 0:
         current_weather = get_local_weather()
     
     i += 1
@@ -141,7 +141,7 @@ while True:
         draw.text((5, 215), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
         disp.display(img)
     
-        time.sleep(10)
+        time.sleep(60)
     except Exception as e:
         send_email(e)
         terminate(e)
