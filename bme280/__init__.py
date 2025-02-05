@@ -200,7 +200,7 @@ class BME280:
             ),
         )
 
-    def setup(self, mode="forced", temperature_oversampling=0, pressure_oversampling=0, humidity_oversampling=0, temperature_standby=0):
+    def setup(self, mode="forced", temperature_oversampling=1, pressure_oversampling=1, humidity_oversampling=1, temperature_standby=0):
         if self._is_setup:
             return
         self._is_setup = True
