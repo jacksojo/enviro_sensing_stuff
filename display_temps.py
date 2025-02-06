@@ -110,10 +110,10 @@ i=1
 while True:
     setup_logging()
 
-    if i % 1 == 0:
+    try:
         current_weather = get_local_weather()
-    
-    i += 1
+    except:
+        pass
 
     try:
         ### try read from the sensor, display an error message if there is an error
