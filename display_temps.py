@@ -112,7 +112,8 @@ while True:
 
     try:
         current_weather = get_local_weather()
-    except:
+    except Exception as e:
+        send_email('non-fatal error:\n'+e)
         pass
 
     try:
