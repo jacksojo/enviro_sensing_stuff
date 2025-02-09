@@ -1,8 +1,13 @@
 import sqlite3
 import os
+import sys
 
 # Define absolute path for the database
 DB_PATH = "home/jonathan/db/sensor_data.db"
+
+if input('Do you really want to do this? It will wipe the existing db. enter "y" to continue') != 'y':
+    print('cancelling script run')
+    sys.exit()
 
 # Ensure the directory exists
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
