@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 # Define absolute path for the database
-DB_PATH = "~/db/sensor_data.db"
+DB_PATH = "home/jonathan/db/sensor_data.db"
 
 # Ensure the directory exists
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
@@ -13,7 +13,7 @@ cursor = conn.cursor()
 
 # Create table
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS temperature_log (
+CREATE TABLE IF NOT EXISTS BME280_READINGS (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     temperature REAL,
