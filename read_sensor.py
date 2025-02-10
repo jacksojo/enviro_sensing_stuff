@@ -39,7 +39,7 @@ time.sleep(3)
 
 while True:
     timestamp = datetime.datetime.now()
-    db_table = db_utils.BME_TABLE_DEF
+    db_table = db_utils.BME280_TABLE_DEF
     try:
         temperature, humidity, pressure = read_data()
         payload = {
