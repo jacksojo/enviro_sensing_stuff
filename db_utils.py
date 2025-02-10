@@ -8,7 +8,7 @@ DB_PATH = "/home/jonathan/db/sensor_data.db"
 # Define Schema(s)
 BME280_TABLE_DEF = {
     'table_name': 'BME280_READINGS'
-    'schema': {
+    , 'schema': {
         'id':'INTEGER PRIMARY KEY AUTOINCREMENT'
         , 'timestamp': 'DATETIME'
         , 'temperature': 'REAL'
