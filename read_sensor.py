@@ -51,7 +51,7 @@ while True:
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%") 
         db_utils.write_row_to_db(db_table['table_name'], payload)
 
-        time.sleep(10)
+        time.sleep(60)
         
     except Exception as e:
         send_email(repr(e))
