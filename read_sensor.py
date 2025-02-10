@@ -31,6 +31,7 @@ def read_data():
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
+    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}%m")
     return _temperature, _humidity, _pressure
 
 
