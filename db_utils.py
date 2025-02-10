@@ -49,19 +49,17 @@ def create_table(table_def)
     print(f"table {table_def['table_name']} created at {DB_PATH} with schema {schema_string}")
 
 
-def write_row_to_db(table_def, row):
-    
-    if row.keys() != table_df['schema'].keys():
-        print(f'incoming row does not match schema!')
-        print(f'row keys = {row.keys()}')
-        print(f'schema keys = {table_df['schema'].keys()}')
-        sys.exit()
+def write_row_to_db(table_name, row):
     
     # Connect to the database (it will be created if it doesn't exist)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    cursor.execute(f'INSERT INTO {table_df['table_name']} ({", ".join(row.keys())}) VALUES {", ".join(row.values())}')
+    try:
+        cursor.execute(f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES {", ".join(row.values())}')
+
+    except:
+        print('error loading row:', row) 
 
     # Commit and close
     conn.commit()
