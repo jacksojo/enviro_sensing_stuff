@@ -70,9 +70,8 @@ def execute_query(q):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    results = cursor.execute(q)
+    results = cursor.execute(q).fetchall()
 
-    conn.commit
     conn.close()
 
     return results
