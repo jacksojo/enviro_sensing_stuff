@@ -9,6 +9,8 @@ from bme280 import BME280
 from send_email import send_email
 import db_utils
 
+TIME_BETWEEN_READINGS = 60
+
 
 # setup logging
 def setup_logging():
@@ -51,7 +53,7 @@ while True:
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%") 
         db_utils.write_row_to_db(db_table['table_name'], payload)
 
-        time.sleep(60)
+        time.sleep(TIME_BETWEEN_READINGS)
         
     except Exception as e:
         send_email(repr(e))
