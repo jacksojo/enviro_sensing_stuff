@@ -45,6 +45,7 @@ while True:
         temperature, humidity, pressure = read_data()
         payload = {
             'epoch_id':int(timestamp.timestamp()),
+            'timestamp':str(timestamp),
             'temperature':temperature, 
             'humidity':humidity, 
             'pressure':pressure
