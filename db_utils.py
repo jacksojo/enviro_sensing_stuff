@@ -68,10 +68,11 @@ def write_row_to_db(table_name, row):
 def execute_query(q):
     # Connect to the database (it will be created if it doesn't exist)
     conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row 
     cursor = conn.cursor()
 
     results = cursor.execute(q).fetchall()
 
     conn.close()
 
-    return results
+    return [dict(x) for x in results]
