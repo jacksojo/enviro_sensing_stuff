@@ -43,7 +43,8 @@ while True:
     try:
         temperature, humidity, pressure = read_data()
         payload = {
-            'id':i#int(timestamp.timestamp()), 
+            'id':i, 
+            #'id':int(timestamp.timestamp()),
             'timestamp':str(timestamp), 
             'temperature':temperature, 
             'humidity':humidity, 
