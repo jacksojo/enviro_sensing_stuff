@@ -31,7 +31,7 @@ def read_data():
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
-    return _temperature, _pressure, _humidity
+    return _temperature, _humidity, _pressure
 
 
 ### DO THS FIRST TO FIRE UP THE SENSOR AND DISCARD THE FIRST VALUE
