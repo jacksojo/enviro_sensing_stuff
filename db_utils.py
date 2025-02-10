@@ -58,8 +58,9 @@ def write_row_to_db(table_name, row):
     try:
         cursor.execute(f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES {", ".join(row.values())}')
 
-    except:
+    except Exception e:
         print('error loading row:', row) 
+        raise e
 
     # Commit and close
     conn.commit()
