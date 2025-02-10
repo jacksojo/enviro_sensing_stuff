@@ -42,7 +42,7 @@ def create_table(table_def):
     cursor = conn.cursor()
     
     # Create table
-    cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_def['table_name']} ({schema_string})")
+    cursor.execute(f"CREATE OR REPLACE TABLE {table_def['table_name']} ({schema_string})")
     conn.commit()
     conn.close()
 
