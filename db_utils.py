@@ -1,4 +1,4 @@
-import sqlite3
+ochimport sqlite3
 import os
 import sys
 
@@ -9,8 +9,7 @@ DB_PATH = "/home/jonathan/db/sensor_data.db"
 BME280_TABLE_DEF = {
     'table_name': 'BME280_READINGS'
     , 'schema': {
-        'id':'INTEGER PRIMARY KEY AUTOINCREMENT'
-        #, 'timestamp': 'DATETIME'
+        'epoch_id':'INTEGER PRIMARY KEY AUTOINCREMENT'
         , 'temperature': 'REAL'
         , 'humidity': 'REAL'
         , 'pressure': 'REAL'
@@ -65,3 +64,15 @@ def write_row_to_db(table_name, row):
     # Commit and close
     conn.commit()
     conn.close()
+
+def execute_query(q):
+    # Connect to the database (it will be created if it doesn't exist)
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    results = cursor.execute(q)
+
+    conn.commit
+    conn.close()
+
+    return results
