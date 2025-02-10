@@ -42,10 +42,16 @@ while True:
     db_table = db_utils.BME_TABLE_DEF
     try:
         temperature, humidity, pressure = read_data()
-        payload = [int(timestamp.timestamp()), str(timestamp), temperature, humidity, pressure]
+        payload = {
+            'id':int(timestamp.timestamp()), 
+            'timestamp':str(timestamp), 
+            'temperature':temperature, 
+            'humidity':humidity, 
+            'pressure':pressure
+        }
         
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%") 
-        db_utils.write_row_to_db(db_table, dict(zip(db_table['schema'], payload)))
+        db_utils.write_row_to_db(db_table['table_name'], payload)
 
         time.sleep(10)
         
