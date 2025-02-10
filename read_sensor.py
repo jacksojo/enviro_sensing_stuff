@@ -44,7 +44,6 @@ while True:
     try:
         temperature, humidity, pressure = read_data()
         payload = {
-            'epoch_id':int(timestamp.timestamp()),
             'timestamp':f"'{str(timestamp)}'",
             'temperature':temperature, 
             'humidity':humidity, 
