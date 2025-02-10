@@ -35,7 +35,7 @@ def create_db():
 
 
 def create_table(table_def):
-    schema_string = '\n, '.join(['{k} {v}' for k, v in table_def['schema'].items()])
+    schema_string = '\n, '.join([f'{k} {v}' for k, v in table_def['schema'].items()])
     
     # Connect to the database (it will be created if it doesn't exist)
     conn = sqlite3.connect(DB_PATH)
