@@ -56,6 +56,6 @@ while True:
         time.sleep(10)
         
     except Exception as e:
-        send_email(rep(e))
+        send_email(repr(e))
         raise e
 
