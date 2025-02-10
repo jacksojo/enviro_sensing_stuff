@@ -36,15 +36,13 @@ def read_data():
 _temperature = bme280.get_temperature()
 time.sleep(3)
 
-i = -1
 while True:
     timestamp = datetime.datetime.now()
     db_table = db_utils.BME280_TABLE_DEF
     try:
         temperature, humidity, pressure = read_data()
         payload = {
-            'id':i, 
-            #'id':int(timestamp.timestamp()),
+            'id':int(timestamp.timestamp()),
             'timestamp':str(timestamp), 
             'temperature':temperature, 
             'humidity':humidity, 
