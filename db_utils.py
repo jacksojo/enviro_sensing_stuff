@@ -42,11 +42,24 @@ def create_table(table_def):
     cursor = conn.cursor()
     
     # Create table
-    cursor.execute(f"CREATE TABLE {table_def['table_name']} ({schema_string})")
+    cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_def['table_name']} ({schema_string})")
     conn.commit()
     conn.close()
 
     print(f"table {table_def['table_name']} created at {DB_PATH} with schema {schema_string}")
+
+
+def drop_table(table_def):
+     # Connect to the database (it will be created if it doesn't exist)
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # Create table
+    cursor.execute(f"DROP TABLE {table_def['table_name']}")
+    conn.commit()
+    conn.close()
+
+    print(f"table {table_def['table_name']} dropped")
 
 
 def write_row_to_db(table_name, row):
