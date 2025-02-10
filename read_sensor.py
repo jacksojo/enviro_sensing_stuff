@@ -36,14 +36,14 @@ def read_data():
 _temperature = bme280.get_temperature()
 time.sleep(3)
 
-
+i = -1
 while True:
     timestamp = datetime.datetime.now()
     db_table = db_utils.BME280_TABLE_DEF
     try:
         temperature, humidity, pressure = read_data()
         payload = {
-            'id':int(timestamp.timestamp()), 
+            'id':i#int(timestamp.timestamp()), 
             'timestamp':str(timestamp), 
             'temperature':temperature, 
             'humidity':humidity, 
@@ -52,6 +52,7 @@ while True:
         
         print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%") 
         db_utils.write_row_to_db(db_table['table_name'], payload)
+        i -= 1
 
         time.sleep(10)
         
