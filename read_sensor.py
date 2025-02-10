@@ -3,9 +3,11 @@ import datetime
 from smbus2 import SMBus
 import sys
 import logging
+import sqlite3
 
 from bme280 import BME280
 from send_email import send_email
+import db_utils
 
 
 # setup logging
@@ -23,17 +25,10 @@ bus = SMBus(1)
 bme280 = BME280(i2c_dev=bus)
 
 
-recorded_temps = []
-
-def div_0(num, den): ### returns 0 if den is 0
-        return 0 if den == 0 else num / den
-
 def read_data():
     _temperature = bme280.get_temperature()
     _pressure = bme280.get_pressure()
     _humidity = bme280.get_humidity()
-    print(f"{_temperature:05.2f}°C {_pressure:05.2f}hPa {_humidity:05.2f}%")
-    logging.info(f"{_temperature}°C {_pressure}hPa {_humidity}% {str(datetime.datetime.today())}")
     return _temperature, _pressure, _humidity
 
 
@@ -41,19 +36,20 @@ def read_data():
 _temperature = bme280.get_temperature()
 time.sleep(3)
 
-### to keep track of number of iterations
-i=1
-while True:
 
+while True:
+    timestamp = datetime.datetime.now()
+    db_table = db_utils.BME_TABLE_DEF
     try:
-        ### try read from the sensor, display an error message if there is an error
-        try:
-            temperature, pressure, humidity = read_data()
-        except Exception as e:
-            send_email(repr.e)
-            raise e
-    
+        temperature, humidity, pressure = read_data()
+        payload = [int(timestamp.timestamp()), str(timestamp), temperature, humidity, pressure]
+        
+        print(f"{temperature:05.2f}°C {pressure:05.2f}hPa {humidity:05.2f}%") 
+        db_utils.write_row_to_db(db_table, dict(zip(db_table['schema'], payload)))
+
         time.sleep(10)
+        
     except Exception as e:
-        send_email(e)
+        send_email(repr.e)
         raise e
+
