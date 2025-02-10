@@ -10,7 +10,7 @@ BME280_TABLE_DEF = {
     'table_name': 'BME280_READINGS'
     , 'schema': {
         'id':'INTEGER PRIMARY KEY AUTOINCREMENT'
-        , 'timestamp': 'DATETIME'
+        #, 'timestamp': 'DATETIME'
         , 'temperature': 'REAL'
         , 'humidity': 'REAL'
         , 'pressure': 'REAL'
