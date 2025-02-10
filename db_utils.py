@@ -56,7 +56,7 @@ def write_row_to_db(table_name, row):
     cursor = conn.cursor()
 
     try:
-        q = f'INSERT INTO {table_name} ({", ".join(row.keys()[1:])}) VALUES ({", ".join([str(x) for x in row.values()])})'
+        q = f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES ({", ".join([str(x) for x in row.values()])})'
         cursor.execute(q)
 
     except Exception as e:
