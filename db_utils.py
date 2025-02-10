@@ -56,7 +56,7 @@ def write_row_to_db(table_name, row):
     cursor = conn.cursor()
 
     try:
-        cursor.execute(f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES {", ".join(row.values())}')
+        cursor.execute(f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES {", ".join([str(x) for x in row.values()])}')
 
     except Exception as e:
         print('error loading row:', row) 
