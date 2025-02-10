@@ -56,10 +56,12 @@ def write_row_to_db(table_name, row):
     cursor = conn.cursor()
 
     try:
-        cursor.execute(f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES ({", ".join([str(x) for x in row.values()])})')
+        q = f'INSERT INTO {table_name} ({", ".join(row.keys())}) VALUES ({", ".join([str(x) for x in row.values()])})'
+        cursor.execute(q)
 
     except Exception as e:
         print('error loading row:', row) 
+        print(q)
         raise e
 
     # Commit and close
