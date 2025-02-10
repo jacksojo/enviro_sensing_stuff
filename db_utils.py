@@ -17,7 +17,7 @@ BME280_TABLE_DEF = {
     }
 }
 
-def create_db()
+def create_db():
     ### call this func from an external shell using 'python3 -c import db_scripts; dbscripts.create_db()'
     if input('Do you really want to do this? It will wipe the existing db if it already exists. enter "y" to continue: ') != 'y':
         print('canceling script')
@@ -34,7 +34,7 @@ def create_db()
     
 
 
-def create_table(table_def)
+def create_table(table_def):
     schema_string = '\n, '.join(['{k} {v}' for k, v in table_def['schema'].items()])
     
     # Connect to the database (it will be created if it doesn't exist)
