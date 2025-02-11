@@ -108,7 +108,7 @@ def build_image(disp):
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(190,190,160))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-buffer,temp_widget.height-large_font_height+10,line_width=2)
-  temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5)
+  temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5, line_width=2)
 
   ## dummy data
   temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,50)
@@ -125,7 +125,7 @@ def build_image(disp):
   hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(150,120,120))
   hum_widget.add_text(pre,small_font,buffer,buffer)
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer)
-  hum_widget.add_text(hum,small_font,buffer,small_font_height)
+  hum_widget.add_text(hum,small_font,buffer,hum_widget.height/2+buffer)
   hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height+buffer)
   hum_widget.publish()
 
