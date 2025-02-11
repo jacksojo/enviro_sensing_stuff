@@ -91,9 +91,9 @@ class widget:
 data = execute_query(f"select * from {BME280_TABLE_DEF['table_name']} where timestamp >= {str(datetime.date.today())}")
 print('first_row', data[0])
 print('last_row', data[-1])
-current_temp = data[0]['temperature']
-current_pressure = data[0]['pressure']
-current_humidity = data[0]['humidity']
+current_temp = data[-1]['temperature']
+current_pressure = data[-1]['pressure']
+current_humidity = data[-1]['humidity']
 
 ### Temperature widget
 big = str(current_temp).split('.')[0]
