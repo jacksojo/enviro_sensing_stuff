@@ -56,37 +56,5 @@ def read_data(q):
 
 
 
-################
-# I don't think this works properly
-def terminate(error_text=' '):
-    disp.reset()
-    draw.text((5, 5), repr(error_text), font=font, fill=(255,255,255))
-    disp.display(img)
-    time.sleep(3)
-    disp.display(Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0)))
-    disp.set_backlight(0)
-    sys.exit()
 
-
-
-    
-        ### update the background colour based on the current temp relative to the last 2 mins
-        if len(recorded_temps) > 120:
-            recorded_temps = recorded_temps[-120:]
-    
-        background_colour = set_background_colour(temperature)
-    
-        draw.rectangle((0, 0, WIDTH, HEIGHT), background_colour)
-    
-        ### add in the temperature text
-        draw.text((5, 15), f"{temperature:05.2f}°C", font=font, fill=(255, 255, 255))
-        draw.text((5, 55), f"{temp_from_api:05.2f}°C in town", font=small_font, fill=(255, 255, 255))
-        draw.text((5, 95), f"{pressure:05.2f}hPa", font=font, fill=(255, 255, 255))
-        draw.text((5, 155), f"{humidity:05.2f}%", font=font, fill=(255, 255, 255))
-        draw.text((5, 215), f"{str(time.ctime())}", font=small_font, fill=(255, 255, 255))
-        disp.display(img)
-    
-        time.sleep(60)
-    except Exception as e:
-        send_email(e)
         terminate(e)
