@@ -38,19 +38,19 @@ class widget:
     self.image = Image.new("RGB", (w, h), color=(0, 0, 0))
     self.draw = ImageDraw.Draw(self.image)
 
-  def add_text(text,font,x,y,color=(255,255,255)):
+  def add_text(self,text,font,x,y,color=(255,255,255)):
     self.draw.text((x,y), text, font=font, fill=color)
 
-  def add_image(im,x,y):
+  def add_image(self,im,x,y):
     self.image.paste(im, (x,y))
 
-  def add_border(weight,color,rounded=True):
+  def add_border(self,weight,color,rounded=True):
     # need to do this before adding other elements
     self.image = Image.new("RGB", (self.w, self.h), color=color)
     #### need to add something here
     return None
 
-  def publish():
+  def publish(self):
     img.paste(self.image, (self.x, self.y))
 
 top_left = widget(5, 5, 40, 40)
