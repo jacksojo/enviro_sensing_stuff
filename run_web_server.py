@@ -12,6 +12,7 @@ def get_data():
 @app.route("/")
 def home():
     x = get_data()
+    print(str(x))
     return f"Data: {str(x)}"
 
 if __name__ == '__main__':
