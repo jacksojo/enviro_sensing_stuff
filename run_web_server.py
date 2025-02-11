@@ -6,8 +6,7 @@ app = Flask(__name__)
 
 def get_data():
     with app.app_context():
-        data = str(execute_query(f"select * from {BME280_TABLE_DEF['table_name']} order by timestamp desc"))
-        print(data)
+        data = str(execute_query(f"select * from {BME280_TABLE_DEF['table_name']} order by timestamp desc")[-1])
         return data
 
 @app.route("/")
