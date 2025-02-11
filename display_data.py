@@ -88,7 +88,7 @@ class widget:
   def publish(self):
     img.paste(self.image, (self.x, self.y))
 
-data = execute_query(f"select * from {BME280_TABLE_DEF} where timestamp >= {str(datetime.date.today()}")
+data = execute_query(f"select * from {BME280_TABLE_DEF} where timestamp >= {str(datetime.date.today())}")
 current_temp = data[0]['temperature']
 current_pressure = data[0]['pressure']
 current_humidity = data[0]['humidity']
