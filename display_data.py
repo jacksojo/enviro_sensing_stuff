@@ -5,8 +5,8 @@ import st7789
 from db_utils import execute_query, BME280_TABLE_DEF
 
 raw_font = '/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf'
-large_font_height = 110
-small_font_height = 45
+large_font_height = 120
+small_font_height = 42
 very_small_font_height=20
 buffer = 5
 
@@ -58,6 +58,7 @@ def build_image(disp):
     def add_image(self,im,x,y):
       self.image.paste(im, (x,y))
 
+    ### unused and untested
     def add_border(self,weight,color,rounded=True):
       # need to do this before adding other elements
       self.image = Image.new("RGB", (self.w, self.h), color=color)
