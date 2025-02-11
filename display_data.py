@@ -53,7 +53,7 @@ class widget:
   def publish(self):
     img.paste(self.image, (self.x, self.y))
 
-top_left = widget(5, 5, 200, 200)
+top_left = widget(5, 5, WIDTH/2-5, HEIGHT/2-5)
 top_left.add_text('-10', LARGE_FONT, 0, 0)
 top_left.publish()
 
