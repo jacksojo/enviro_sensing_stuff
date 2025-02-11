@@ -38,7 +38,7 @@ def build_image(disp):
   disp_width = disp.width
   disp_height = disp.height
 
-  img = Image.new("RGBA", (disp_width, disp_height), color=(100, 100, 100, 255))
+  img = Image.new("RGBA", (disp_width, disp_height), color=(180, 180, 180, 255))
   draw = ImageDraw.Draw(img)
 
   class widget:
