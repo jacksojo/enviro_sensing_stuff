@@ -25,7 +25,8 @@ SMALL_FONT = ImageFont.truetype('/usr/share/fonts/truetype/quicksand/Quicksand-R
 WIDTH = disp.width
 HEIGHT = disp.height
 
-img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 0, 0))
+img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 255, 0))
+img.save("/home/jonathan/db/current_image.png")
 draw = ImageDraw.Draw(img)
 
 class widget:
