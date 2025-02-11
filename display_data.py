@@ -122,7 +122,7 @@ def build_image(disp):
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.65)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.85)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
   hum_widget.add_line(pres_history,0,0,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer,color=(255,255,255,120))
@@ -138,7 +138,7 @@ def build_image(disp):
   minutes = str(current_timestamp.split(' ')[1].split(':')[1])
   minutes_w = small_font.getlength(minutes)
   
-  time_widget = widget(hum_widget.width+buffer*2, temp_widget.height+buffer*2, disp_width-hum_widget.width-buffer*3, disp_height-temp_widget.height-buffer*3,color=(240,209,219,255))
+  time_widget = widget(hum_widget.width+buffer*2, temp_widget.height+buffer*2, disp_width-hum_widget.width-buffer*3, disp_height-temp_widget.height-buffer*3,color=	(183,136,118,0))
   time_widget.add_text(hours, small_font, time_widget.width/2-hours_w/2, time_widget.height*.25-small_font_height*.35, line_width=1)
   time_widget.add_text(minutes, small_font, time_widget.width/2-minutes_w/2, time_widget.height*.75-small_font_height*.35, line_width=1, line_color=(150,150,150,255))
   time_widget.publish()            
