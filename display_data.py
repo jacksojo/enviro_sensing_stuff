@@ -94,7 +94,7 @@ print('last_row', data[-1])
 current_temp = data[-1]['temperature']
 current_pressure = data[-1]['pressure']
 current_humidity = data[-1]['humidity']
-temp_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').to_timestamp(), r['temperature']) for r in data]
+temp_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['temperature']) for r in data]
 print(temp_history)
 
 ### Temperature widget
