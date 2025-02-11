@@ -38,7 +38,7 @@ def build_image(disp):
   disp_width = disp.width
   disp_height = disp.height
 
-  img = Image.new("RGB", (disp_width, disp_height), color=(100, 100, 100))
+  img = Image.new("RGBA", (disp_width, disp_height), color=(100, 100, 100, 1))
   draw = ImageDraw.Draw(img)
 
   class widget:
@@ -51,7 +51,7 @@ def build_image(disp):
       self.image = Image.new("RGB", (w, h), color=color)
       self.draw = ImageDraw.Draw(self.image)
 
-    def add_text(self,text,font,x,y,color=(255,255,255), line_width=0, line_color='black'):
+    def add_text(self,text,font,x,y,color=(255,255,255,1), line_width=0, line_color='black'):
       text = self.draw.text((x,y-10), text, font=font, fill=color, stroke_width=line_width, stroke_fill=line_color)
       return text
 
@@ -61,11 +61,11 @@ def build_image(disp):
     ### unused and untested
     def add_border(self,weight,color,rounded=True):
       # need to do this before adding other elements
-      self.image = Image.new("RGB", (self.w, self.h), color=color)
+      self.image = Image.new("RGBA", (self.w, self.h), color=color)
       #### need to add something here
       return None
     
-    def add_line(self, data, start_x, start_y, w, h, color=(0,0,0), weight=3, show_y_range=True):
+    def add_line(self, data, start_x, start_y, w, h, color=(0,0,0,1), weight=3, show_y_range=True):
 
       max_x = max([d[0] for d in data])
       min_x = min([d[0] for d in data])
@@ -106,8 +106,8 @@ def build_image(disp):
   small = '.'+str(current_temp).split('.')[1][:2]+'°'
   small_w = small_font.getlength(small)
 
-  temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(190,190,160))
-  temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,50,color=(255,255,255))
+  temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(190,190,160,1))
+  temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,50,color=(255,255,255,1))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-buffer,temp_widget.height-large_font_height+10,line_width=2,color=(255,255,255,.8))
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5, line_width=1)
   temp_widget.publish()
@@ -120,7 +120,7 @@ def build_image(disp):
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(150,120,120))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(150,120,120,1))
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1)
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer)
   hum_widget.add_text(hum,small_font,buffer,hum_widget.height/2+buffer, line_width=1)
