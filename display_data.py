@@ -121,7 +121,7 @@ hum_widget = widget(buffer,temp_widget.height+buffer*2,int(WIDTH/1.6)-buffer*2,i
 hum_widget.add_text(pre,small_font,buffer,buffer)
 hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer)
 hum_widget.add_text(hum,small_font,buffer,small_font_height)
-hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height)
+hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height+buffer)
 hum_widget.publish()
 
 disp.display(img)
