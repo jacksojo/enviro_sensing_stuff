@@ -1,7 +1,7 @@
 import datetime
 from PIL import Image, ImageDraw, ImageFont
 from send_email import send_email
-from st7789 import ST7789
+import st7789
 
 # Initialise the st7789
 disp = st7789.ST7789(
