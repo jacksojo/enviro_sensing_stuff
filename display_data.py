@@ -25,8 +25,7 @@ SMALL_FONT = ImageFont.truetype('/usr/share/fonts/truetype/quicksand/Quicksand-R
 WIDTH = disp.width
 HEIGHT = disp.height
 
-img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 255, 0))
-img.save("/home/jonathan/db/latest_image.png")
+img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 0, 255))
 draw = ImageDraw.Draw(img)
 
 class widget:
@@ -36,18 +35,29 @@ class widget:
     self.y = y
     self.width = w
     self.height = h
-    self.background = Image.new("RGB", (w, h), color=(0, 0, 0))
-    self.draw = ImageDraw.Draw(self.background)
+    self.image = Image.new("RGB", (w, h), color=(0, 0, 0))
+    self.draw = ImageDraw.Draw(self.image)
 
   def add_text(text,font,x,y,color=(255,255,255)):
-    self.draw((x,y), text, font=font, fill=color)
+    self.draw.text((x,y), text, font=font, fill=color)
 
   def add_image(im,x,y):
-    return None
+    self.image.paste(im, (x,y))
 
   def add_border(weight,color,rounded=True):
+    # need to do this before adding other elements
+    self.image = Image.new("RGB", (self.w, self.h), color=color)
+    #### need to add something here
     return None
 
+  def publish():
+    img.paste(self.image, (self.x, self.y))
+
+top_left = widget(5, 5, 40, 40)
+top_left.add_text('-10.00', LARGE_FONT, 10, 10)
+top_left.publish()
+
+img.save("/home/jonathan/db/latest_image.png")
 
 def read_data(q):
 
