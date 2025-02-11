@@ -52,9 +52,3 @@ class widget:
 def read_data(q):
 
   return None
-
-
-
-
-
-        terminate(e)
