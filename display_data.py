@@ -97,6 +97,7 @@ def build_image(disp):
   current_temp = data[-1]['temperature']
   current_pressure = data[-1]['pressure']
   current_humidity = data[-1]['humidity']
+  current_timestamp = data[-1]['timestamp']
   temp_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['temperature']) for r in data]
   hum_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['humidity']) for r in data]
   pres_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['pressure']) for r in data]
@@ -129,6 +130,18 @@ def build_image(disp):
   hum_widget.add_text(hum,small_font,buffer,hum_widget.height/2+buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height+buffer, color=(255,255,255,120))
   hum_widget.publish()
+
+  
+  ### Time widget
+  hours = str(current_timestamp.split(' ')[1].split(':')[0])
+  hours_w = small_font.get_length(hours)
+  minutes = str(current_timestamp.split(' ')[1].split(':')[1])
+  minutes_w = small_font.get_length(minutes)
+  
+  time_widget = widget(hum_widget.width+buffer*2, temp_widget.height+buffer*2, display_width-hum_widget.width-buffer*3, display_height-temp_widget.height-buffer*3,color=(200,200,255,0))
+  time_widget.add_text(hours, small_font, time_widget.width/2-hours_w/2, time_widget.height*.25-small_font_size/2)
+  time_widget.add_text(minutes, small_font, time_widget.width/2-minutes_w/2, time_widget.height*.75-small_font_size/2)
+  time_widget.publish()            
 
   return img
 
