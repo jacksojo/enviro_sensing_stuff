@@ -39,7 +39,7 @@ class widget:
     self.background = Image.new("RGB", (w, h), color=(0, 0, 0))
     self.draw = ImageDraw.Draw(self.background)
 
-  def add_text(text,font,x,y,color=(255,255,255):
+  def add_text(text,font,x,y,color=(255,255,255)):
     self.draw((x,y), text, font=font, fill=color)
 
   def add_image(im,x,y):
