@@ -12,7 +12,7 @@ def get_data():
 def get_image():
     return send_from_directory("static", "/home/jonathan/db/latest_image.png")
 
-@app.route("/")
+@app.route("/image")
 def home():
     return get_image()
 
