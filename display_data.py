@@ -39,7 +39,8 @@ class widget:
     self.draw = ImageDraw.Draw(self.image)
 
   def add_text(self,text,font,x,y,color=(255,255,255)):
-    self.draw.text((x,y), text, font=font, fill=color)
+    text = self.draw.text((x,y), text, font=font, fill=color)
+    return text
 
   def add_image(self,im,x,y):
     self.image.paste(im, (x,y))
@@ -54,7 +55,8 @@ class widget:
     img.paste(self.image, (self.x, self.y))
 
 top_left = widget(0, 0, int(WIDTH/2) , int(HEIGHT/2) )
-top_left.add_text('-10', LARGE_FONT, 0, 0)
+big_text_w, big_text_h = top_left.add_text('-10', LARGE_FONT, 0, 0).textsize('-10', font=LARGE_FONT)
+after_decimal = top_left.add_text('.00', SMALL_FONT, big_text_w, big_text_h/2)
 top_left.publish()
 
 img.save("/home/jonathan/db/latest_image.png")
