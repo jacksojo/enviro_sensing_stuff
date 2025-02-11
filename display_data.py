@@ -2,6 +2,7 @@ import datetime
 from PIL import Image, ImageDraw, ImageFont
 from send_email import send_email
 import st7789
+from db_utils import execute_query, BME280_TABLE_DEF
 
 # Initialise the st7789
 disp = st7789.ST7789(
@@ -87,12 +88,15 @@ class widget:
   def publish(self):
     img.paste(self.image, (self.x, self.y))
 
+data = execute_query(f"select * from {BME280_TABLE_DEF} where timestamp >= {str(datetime.date.today()}")
+current_temp = data[0]['temperature']
+current_pressure = data[0]['pressure']
+current_humidity = data[0]['humidity']
 
 ### Temperature widget
-test_temp = -12.34
-big = str(test_temp).split('.')[0]
+big = str(current_temp).split('.')[0]
 big_w = large_font.getlength(big)
-small = '.'+str(test_temp).split('.')[1][:2]+'°'
+small = '.'+str(current_temp).split('.')[1][:2]+'°'
 small_w = small_font.getlength(small)
 
 temp_widget = widget(buffer,buffer,int(WIDTH)-buffer*2,int(HEIGHT/1.6)-buffer*2,(190,190,160))
@@ -105,10 +109,8 @@ temp_widget.publish()
 
 
 ### Humidity widget
-test_hum = 69.78
-test_pressure = 864.3
-pre = str(test_pressure)
-hum = str(test_hum)
+pre = str(current_pressure)
+hum = str(current_humidity)
 pre_unit = 'hpa'
 hum_unit = '%'
 
