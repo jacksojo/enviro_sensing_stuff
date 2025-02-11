@@ -54,7 +54,7 @@ class widget:
     img.paste(self.image, (self.x, self.y))
 
 top_left = widget(5, 5, 200, 200)
-top_left.add_text('-10.00', LARGE_FONT, 10, 10)
+top_left.add_text('-10.00', LARGE_FONT, 0, 0)
 top_left.publish()
 
 img.save("/home/jonathan/db/latest_image.png")
