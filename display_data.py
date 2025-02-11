@@ -19,7 +19,7 @@ disp = st7789.ST7789(
 
 disp.begin()
 
-LARGE_FONT = ImageFont.truetype('/usr/share/fonts/truetype/quicksand/Quicksand-Regular.ttf', 50)
+LARGE_FONT = ImageFont.truetype('/usr/share/fonts/truetype/quicksand/Quicksand-Regular.ttf', 40)
 SMALL_FONT = ImageFont.truetype('/usr/share/fonts/truetype/quicksand/Quicksand-Regular.ttf', 20)
 
 WIDTH = disp.width
@@ -54,7 +54,7 @@ class widget:
     img.paste(self.image, (self.x, self.y))
 
 top_left = widget(5, 5, 200, 200)
-top_left.add_text('-10.00', LARGE_FONT, 0, 0)
+top_left.add_text('-10', LARGE_FONT, 0, 0)
 top_left.publish()
 
 img.save("/home/jonathan/db/latest_image.png")
