@@ -14,9 +14,6 @@ display = display_data.init_display()
 ## take a reading and discard
 read_sensor.take_throwaway_reading(sensor)
 
-## start the web server
-run_web_server.run_web_server()
-
 ## run the loop
 error_count = 0
 while True:
@@ -33,7 +30,7 @@ while True:
         error_count += 1
         pass
     
-    time.sleep(TIME_BETWEEN_READINGS*.1)
+    time.sleep(2)
 
     try:
         image = display_data.build_image(display)
@@ -46,4 +43,4 @@ while True:
 
     error_count = 0
 
-    time.sleep(TIME_BETWEEN_READINGS*.9)
+    time.sleep(TIME_BETWEEN_READINGS-2)
