@@ -12,7 +12,7 @@ def get_data():
 @app.route("/")
 def home():
     x = get_data()
-    return f"Data: {x}"
+    return f"Data: {str(x)}"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)  # Accessible on the local network
