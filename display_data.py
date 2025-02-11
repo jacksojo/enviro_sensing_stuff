@@ -19,7 +19,7 @@ disp = st7789.ST7789(
 
 disp.begin()
 
-raw_font = '/usr/share/fonts/truetype/quicksand/Quicksand-Regular.ttf'
+raw_font = '/usr/share/fonts/truetype/piboto/PibotoCondensed-Bold.ttf'
 large_font_height = 110
 small_font_height = 45
 very_small_font_height=20
