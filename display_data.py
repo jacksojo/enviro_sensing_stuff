@@ -46,7 +46,7 @@ class widget:
     self.draw = ImageDraw.Draw(self.image)
 
   def add_text(self,text,font,x,y,color=(255,255,255)):
-    text = self.draw.text((x,y), text, font=font, fill=color)
+    text = self.draw.text((x,y-10), text, font=font, fill=color)
     return text
 
   def add_image(self,im,x,y):
