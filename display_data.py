@@ -134,9 +134,9 @@ def build_image(disp):
   
   ### Time widget
   hours = str(current_timestamp.split(' ')[1].split(':')[0])
-  hours_w = small_font.get_length(hours)
+  hours_w = small_font.getlength(hours)
   minutes = str(current_timestamp.split(' ')[1].split(':')[1])
-  minutes_w = small_font.get_length(minutes)
+  minutes_w = small_font.getlength(minutes)
   
   time_widget = widget(hum_widget.width+buffer*2, temp_widget.height+buffer*2, display_width-hum_widget.width-buffer*3, display_height-temp_widget.height-buffer*3,color=(200,200,255,0))
   time_widget.add_text(hours, small_font, time_widget.width/2-hours_w/2, time_widget.height*.25-small_font_size/2)
