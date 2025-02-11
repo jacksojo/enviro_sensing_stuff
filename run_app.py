@@ -2,7 +2,7 @@ import time
 import read_sensor
 import display_data
 import run_web_server
-import send_email
+from send_email import send_email
 import sys
 
 TIME_BETWEEN_READINGS = 60
