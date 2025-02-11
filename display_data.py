@@ -108,7 +108,7 @@ temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-buffer,temp_
 temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5)
 
 ## dummy data
-temp_widget.add_line([(0.0,0.0),(1.0,1.0),(2.0,1.0),(3.0,2.0),(5.0,2.0),(7.0,3.0)],buffer,buffer,temp_widget.width-10,50)
+temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,50)
 temp_widget.publish()
 
 
