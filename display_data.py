@@ -26,7 +26,7 @@ WIDTH = disp.width
 HEIGHT = disp.height
 
 img = Image.new("RGB", (WIDTH, HEIGHT), color=(0, 255, 0))
-img.save("/home/jonathan/db/current_image.png")
+img.save("/home/jonathan/db/latest_image.png")
 draw = ImageDraw.Draw(img)
 
 class widget:
