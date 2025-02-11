@@ -38,7 +38,7 @@ def build_image(disp):
   disp_width = disp.width
   disp_height = disp.height
 
-  img = Image.new("RGB", (WIDTH, HEIGHT), color=(100, 100, 100))
+  img = Image.new("RGB", (disp_width, disp_height), color=(100, 100, 100))
   draw = ImageDraw.Draw(img)
 
   class widget:
@@ -94,13 +94,10 @@ def build_image(disp):
       img.paste(self.image, (self.x, self.y))
 
   data = execute_query(f"select * from {BME280_TABLE_DEF['table_name']} where timestamp >= '{str(datetime.date.today())}'")
-  print('first_row', data[0])
-  print('last_row', data[-1])
   current_temp = data[-1]['temperature']
   current_pressure = data[-1]['pressure']
   current_humidity = data[-1]['humidity']
   temp_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['temperature']) for r in data]
-  print(temp_history)
 
   ### Temperature widget
   big = str(current_temp).split('.')[0]
