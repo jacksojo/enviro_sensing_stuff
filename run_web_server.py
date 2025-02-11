@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, send_from_directory
 import time
 from db_utils import execute_query, BME280_TABLE_DEF
 
@@ -9,11 +9,12 @@ def get_data():
         data = str(execute_query(f"select * from {BME280_TABLE_DEF['table_name']} order by timestamp desc")[0])
         return data
 
+def get_image():
+    return send_from_directory("static", "/home/jonathan/db/latest_image.png"
+
 @app.route("/")
 def home():
-    x = get_data()
-
-    return f"Data: {x}"
+    return get_image()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)  # Accessible on the local network
