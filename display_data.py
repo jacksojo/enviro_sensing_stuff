@@ -108,7 +108,7 @@ def build_image(disp):
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(190,190,160))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-buffer,temp_widget.height-large_font_height+10,line_width=2)
-  temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5, line_width=2)
+  temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5, line_width=1)
 
   ## dummy data
   temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,50)
