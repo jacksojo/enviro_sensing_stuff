@@ -55,8 +55,9 @@ class widget:
     img.paste(self.image, (self.x, self.y))
 
 top_left = widget(0, 0, int(WIDTH/2) , int(HEIGHT/2) )
-big_text_w, big_text_h = top_left.add_text('-10', LARGE_FONT, 0, 0).textsize('-10', font=LARGE_FONT)
-after_decimal = top_left.add_text('.00', SMALL_FONT, big_text_w, big_text_h/2)
+top_left.add_text('-10', LARGE_FONT, 0, 0).textsize('-10', font=LARGE_FONT)
+tw, th = LARGE_FONT.getsize('-10')
+after_decimal = top_left.add_text('.00', SMALL_FONT, tw, th/2)
 top_left.publish()
 
 img.save("/home/jonathan/db/latest_image.png")
