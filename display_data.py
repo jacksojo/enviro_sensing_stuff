@@ -122,5 +122,6 @@ hum_widget.add_text(hum,small_font,buffer,small_font_height)
 hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height)
 hum_widget.publish()
 
+disp.display(img)
 
 img.save("/home/jonathan/db/latest_image.png")
