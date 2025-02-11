@@ -109,8 +109,8 @@ temp_widget.publish()
 
 
 ### Humidity widget
-pre = str(current_pressure)
-hum = str(current_humidity)
+pre = str(current_pressure).split('.')[0]+'.'+str(current_pressure).split('.')[1][0]
+hum = str(current_humidity).split('.')[0]+'.'+str(current_humidity).split('.')[1][0:2]
 pre_unit = 'hpa'
 hum_unit = '%'
 
