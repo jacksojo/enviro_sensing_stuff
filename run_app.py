@@ -26,6 +26,7 @@ while True:
     try:
         read_sensor.read_data(sensor)
     except Exception as e:
+        print(e)
         send_email(repr(e))
         error_count += 1
         pass
@@ -37,6 +38,7 @@ while True:
         display_data.save_image(image)
         display_data.display_image_on_screen(display, image)
     except Exception as e:
+        print(e)
         send_email(repr(e))
         error_count += 1
         pass
