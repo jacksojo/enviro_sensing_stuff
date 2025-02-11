@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_file
 import time
 from db_utils import execute_query, BME280_TABLE_DEF
 
@@ -9,12 +9,10 @@ def get_data():
         data = str(execute_query(f"select * from {BME280_TABLE_DEF['table_name']} order by timestamp desc")[0])
         return data
 
-def get_image():
-    return send_from_directory("static", "/home/jonathan/db/latest_image.png")
-
 @app.route("/image")
-def home():
-    return get_image()
+def serve_image():
+    image_path = "/home/jonathan/db/latest_image.png"
+    return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)  # Accessible on the local network
