@@ -14,9 +14,6 @@ large_font = ImageFont.truetype(raw_font, large_font_height)
 small_font = ImageFont.truetype(raw_font, small_font_height)
 very_small_font = ImageFont.truetype(raw_font, very_small_font_height)
 
-WIDTH = disp.width
-HEIGHT = disp.height
-
 
 
 def init_display():
@@ -36,7 +33,11 @@ def init_display():
   disp.begin()
   return disp
 
-def build_image():
+def build_image(disp):
+
+  disp_width = disp.width
+  disp_height = disp.height
+
   img = Image.new("RGB", (WIDTH, HEIGHT), color=(100, 100, 100))
   draw = ImageDraw.Draw(img)
 
@@ -107,7 +108,7 @@ def build_image():
   small = '.'+str(current_temp).split('.')[1][:2]+'°'
   small_w = small_font.getlength(small)
 
-  temp_widget = widget(buffer,buffer,int(WIDTH)-buffer*2,int(HEIGHT/1.6)-buffer*2,(190,190,160))
+  temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(190,190,160))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-buffer,temp_widget.height-large_font_height+10)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-buffer,temp_widget.height-small_font_height+5)
 
@@ -123,7 +124,7 @@ def build_image():
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(WIDTH/1.6)-buffer*2,int(HEIGHT-temp_widget.height)-buffer*3,(150,120,120))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(150,120,120))
   hum_widget.add_text(pre,small_font,buffer,buffer)
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer)
   hum_widget.add_text(hum,small_font,buffer,small_font_height)
