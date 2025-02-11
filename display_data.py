@@ -52,8 +52,7 @@ def build_image(disp):
       self.draw = ImageDraw.Draw(self.image)
 
     def add_text(self,text,font,x,y,color=(255,255,255,255), line_width=0, line_color='black'):
-      text = self.draw.text((x,y-10), text, font=font, fill=color, stroke_width=line_width, stroke_fill=line_color)
-      return text
+      self.draw.text((x,y-10), text, font=font, fill=color, stroke_width=line_width, stroke_fill=line_color)
 
     def add_image(self,im,x,y):
       self.image.paste(im, (x,y))
@@ -120,7 +119,7 @@ def build_image(disp):
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(150,120,120,255))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width/1.6)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,	(91,112,128,255))
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1)
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer)
   hum_widget.add_text(hum,small_font,buffer,hum_widget.height/2+buffer, line_width=1)
