@@ -129,7 +129,8 @@ def build_image(disp):
   pres_today = transform_data(data_today, 'pressure')
   temps_yesterday = transform_data(data_yesterday, 'temperature', offset_day=True)
 
-  print(temps_yesterday)
+  print(temps_yesterday[0])
+  print(temps_today[0])
 
   ### Temperature widget
   big = str(current_temp).split('.')[0]
