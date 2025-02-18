@@ -129,8 +129,6 @@ def build_image(disp):
   pres_today = transform_data(data_today, 'pressure')
   temps_yesterday = transform_data(data_yesterday, 'temperature', offset_day=True)
 
-  print(temps_yesterday[0])
-  print(temps_today[0])
 
   ### Temperature widget
   big = str(current_temp).split('.')[0]
@@ -140,7 +138,7 @@ def build_image(disp):
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(218,200,151,255))
   temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(100,100,100,255), weight=1)
-  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
+  temp_widget.add_line(temps_today,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-2,temp_widget.height-large_font_height+10,color=(255,255,255,128),line_width=2)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-2,temp_widget.height-small_font_height+5, line_width=1)
   temp_widget.publish()
