@@ -93,15 +93,11 @@ def build_image(disp):
           normed.append((x, y))
         return normed
 
-      main_line = norm_data(data)
 
       print('main',main_line[0:10])
 
       if shadow_data:
-        shadow_line = norm_data(shadow_data)
-        self.draw.line(shadow_data,fill=(150,150,150,255),width=1)
-
-        print('shadow',shadow_line[0:10])
+        self.draw.line(shadow_data,fill=(150,150,150,255),width=weight)
                 
       self.draw.line(main_line,fill=color,width=weight)
 
