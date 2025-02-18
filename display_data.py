@@ -111,7 +111,7 @@ def build_image(disp):
     return from_today, from_yesterday
 
   def transform_data(d, m, offset_day=False):
-    offset = 86400 if offset_day else offset = 0
+    offset = 86400 if offset_day else 0
     return [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp() + offset, r[m]) for r in d]
     
   data_today, data_yesterday = get_data()
