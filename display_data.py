@@ -171,8 +171,6 @@ def build_image(disp):
   time_widget.add_text(minutes, small_font, time_widget.width/2-minutes_w/2, time_widget.height*.75-small_font_height*.35, line_width=1, line_color=(150,150,150,255))
   time_widget.publish() 
 
-  print('image created')
-
   return img
 
 def display_image_on_screen(disp, image):
