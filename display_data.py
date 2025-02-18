@@ -93,14 +93,36 @@ def build_image(disp):
     def publish(self):
       img.paste(self.image, (self.x, self.y))
 
-  data = execute_query(f"select * from {BME280_TABLE_DEF['table_name']} where timestamp >= '{str(datetime.date.today())}'")
-  current_temp = data[-1]['temperature']
-  current_pressure = data[-1]['pressure']
-  current_humidity = data[-1]['humidity']
-  current_timestamp = data[-1]['timestamp']
-  temp_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['temperature']) for r in data]
-  hum_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['humidity']) for r in data]
-  pres_history = [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp(), r['pressure']) for r in data]
+  def get_data()
+    q_template = f"""
+      SELECT *
+      FROM {BME280_TABLE_DEF['table_name']}
+      WHERE TIMESTAMP >= '{start}' AND < '{end}'
+      """
+    today = datetime.date.today()
+    this_time_yesterday = datetime.datetime.now() - datetime.timedelta(hours=24)
+    tomorrow = today + datetime.timedelta(days=1)
+    yesterday = today - datetime.timedelta(days=1)
+    
+    from_today = execute_query(q_template.format(start=str(today), end=str(tomorrow)))
+    from_yesterday = execute_query(q_template.format(start=str(yesterday), end=str(this_time_yesterday)))
+
+    return from_today, from_yesterday
+
+  def transform_data(d, m, offset_day=False):
+    offset = 86400 if offset_day else offset = 0
+    return [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp() + offset, r[m]) for r in d]
+    
+  data_today, data_yesterday = get_data()
+
+  current_temp = data_today[-1]['temperature']
+  current_pressure = data_today[-1]['pressure']
+  current_humidity = data_today[-1]['humidity']
+  current_timestamp = data_today[-1]['timestamp']
+  temps_today = transform_data(from_today, 'temperature')
+  hum_today = transform_data(from_today, 'humidity')
+  pres_today = transform_data(from_today, 'pressure')
+  temps_yesterday = transform_data(from_yesterday, 'temperature', offset_day=True)
 
   ### Temperature widget
   big = str(current_temp).split('.')[0]
@@ -109,7 +131,8 @@ def build_image(disp):
   small_w = small_font.getlength(small)
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(218,200,151,255))
-  temp_widget.add_line(temp_history,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
+  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,color=(100,100,100,255), weight=1)
+  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-2,temp_widget.height-large_font_height+10,color=(255,255,255,128),line_width=2)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-2,temp_widget.height-small_font_height+5, line_width=1)
   temp_widget.publish()
@@ -123,10 +146,10 @@ def build_image(disp):
 
 
   hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width*.75)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
-  hum_widget.add_line(pres_history,0,0,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
+  hum_widget.add_line(pres_today,0,0,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer,color=(255,255,255,120))
-  hum_widget.add_line(hum_history,0,hum_widget.height/2,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
+  hum_widget.add_line(hum_today,0,hum_widget.height/2,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
   hum_widget.add_text(hum,small_font,buffer,hum_widget.height/2+buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(hum_unit, very_small_font, small_font.getlength(hum)+buffer*2, small_font_height+very_small_font_height+buffer, color=(255,255,255,120))
   hum_widget.publish()
