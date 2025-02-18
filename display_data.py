@@ -124,10 +124,10 @@ def build_image(disp):
   current_pressure = data_today[-1]['pressure']
   current_humidity = data_today[-1]['humidity']
   current_timestamp = data_today[-1]['timestamp']
-  temps_today = transform_data(from_today, 'temperature')
-  hum_today = transform_data(from_today, 'humidity')
-  pres_today = transform_data(from_today, 'pressure')
-  temps_yesterday = transform_data(from_yesterday, 'temperature', offset_day=True)
+  temps_today = transform_data(data_today, 'temperature')
+  hum_today = transform_data(data_today, 'humidity')
+  pres_today = transform_data(data_today, 'pressure')
+  temps_yesterday = transform_data(data_yesterday, 'temperature', offset_day=True)
 
   ### Temperature widget
   big = str(current_temp).split('.')[0]
