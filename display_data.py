@@ -95,9 +95,13 @@ def build_image(disp):
 
       main_line = norm_data(data)
 
+      print(main_line)
+
       if shadow_data:
         shadow_line = norm_data(shadow_data)
         self.draw.line(shadow_data,fill=(150,150,150,255),width=1)
+
+        print(shadow_line)
                 
       self.draw.line(main_line,fill=color,width=weight)
 
