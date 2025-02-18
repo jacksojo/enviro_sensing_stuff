@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 from send_email import send_email
 import st7789
 from db_utils import execute_query, BME280_TABLE_DEF
+import sys
 
 raw_font = '/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf'
 large_font_height = 120
@@ -93,7 +94,7 @@ def build_image(disp):
     def publish(self):
       img.paste(self.image, (self.x, self.y))
 
-  def get_data()
+  def get_data():
     q_template = f"""
       SELECT *
       FROM {BME280_TABLE_DEF['table_name']}
@@ -114,6 +115,10 @@ def build_image(disp):
     return [(datetime.datetime.strptime(r['timestamp'], '%Y-%m-%d %H:%M:%S.%f').timestamp() + offset, r[m]) for r in d]
     
   data_today, data_yesterday = get_data()
+
+  ## if we only have 1 row of data then skip this image
+  if len(data_today) < 2:
+    sys.exit()
 
   current_temp = data_today[-1]['temperature']
   current_pressure = data_today[-1]['pressure']
