@@ -69,7 +69,7 @@ def build_image(disp):
 
       max_x = max([d[0] for d in data])
       if shadow_data:
-        max_x = max_x + 360 ## add one hour
+        max_x = max_x + 3600 ## add one hour
       min_x = min([d[0] for d in data])
       max_y = max([d[1] for d in data])
       min_y = min([d[1] for d in data])
@@ -95,7 +95,7 @@ def build_image(disp):
 
       if shadow_data:
         shadow_line = norm_data(shadow_data)
-        self.draw.line(shadow_line,fill=(150,150,150,255),width=1)
+        self.draw.line(shadow_line,fill=(150,150,150,255),width=2)
 
       main_line = norm_data(data)
       self.draw.line(main_line,fill=color,width=weight)
