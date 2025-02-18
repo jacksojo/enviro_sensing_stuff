@@ -65,9 +65,11 @@ def build_image(disp):
       #### need to add something here
       return None
     
-    def add_line(self, data, start_x, start_y, w, h, color=(0,0,0,255), weight=3, show_y_range=True):
+    def add_line(self, data, start_x, start_y, w, h, color=(0,0,0,255), weight=3, show_y_range=True, shadow_data=None):
 
       max_x = max([d[0] for d in data])
+      if shadow_data:
+        max_x = max_x + 360 ## add one hour
       min_x = min([d[0] for d in data])
       max_y = max([d[1] for d in data])
       min_y = min([d[1] for d in data])
@@ -83,13 +85,21 @@ def build_image(disp):
         start_x = start_x+space_used_by_labels
         w = w - space_used_by_labels
 
-      normed_data = []
-      for x, y in data:
-        x = start_x + ((x - min_x) / (max_x - min_x) * w)
-        y = start_y + h - ((y - min_y) / (max_y - min_y) * h)
-        normed_data.append((x, y))
+      def norm_data(d):
+        normed = []
+        for x, y in d:
+          x = start_x + ((x - min_x) / (max_x - min_x) * w)
+          y = start_y + h - ((y - min_y) / (max_y - min_y) * h)
+          normed.append((x, y))
+        return normed
 
-      self.draw.line(normed_data,fill=color,width=weight)
+      main_line = norm_data(data)
+
+      if shadow_data:
+        shadow_line = norm_data(shadow_data)
+        self.draw.line(shadow_data,fill=(150,150,150,255,weight=1)
+                
+      self.draw.line(main_line,fill=color,width=weight)
 
     def publish(self):
       img.paste(self.image, (self.x, self.y))
@@ -137,8 +147,7 @@ def build_image(disp):
   small_w = small_font.getlength(small)
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(218,200,151,255))
-  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(100,100,100,255), weight=1)
-  temp_widget.add_line(temps_today,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
+  temp_widget.add_line(temps_today,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255),shadow_data=temps_yesterday)
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-2,temp_widget.height-large_font_height+10,color=(255,255,255,128),line_width=2)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-2,temp_widget.height-small_font_height+5, line_width=1)
   temp_widget.publish()
