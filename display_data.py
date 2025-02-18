@@ -162,7 +162,7 @@ def build_image(disp):
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width*.v_divider)-buffer,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width*v_divider)-buffer,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
   hum_widget.add_line(pres_today,0,0,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer,color=(255,255,255,120))
