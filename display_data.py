@@ -129,6 +129,8 @@ def build_image(disp):
   pres_today = transform_data(data_today, 'pressure')
   temps_yesterday = transform_data(data_yesterday, 'temperature', offset_day=True)
 
+  print(temps_yesterday)
+
   ### Temperature widget
   big = str(current_temp).split('.')[0]
   big_w = large_font.getlength(big)
