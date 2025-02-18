@@ -95,7 +95,7 @@ def build_image(disp):
 
       if shadow_data:
         shadow_line = norm_data(shadow_data)
-        self.draw.line(shadow_line,fill=(150,150,150,255),width=2)
+        self.draw.line(shadow_line,fill=(200,200,200,255),width=2)
 
       main_line = norm_data(data)
       self.draw.line(main_line,fill=color,width=weight)
@@ -110,7 +110,7 @@ def build_image(disp):
       WHERE TIMESTAMP >= '{start}' AND TIMESTAMP < '{end}'
       """
     today = datetime.date.today()
-    this_time_yesterday = datetime.datetime.now() - datetime.timedelta(hours=24)
+    this_time_yesterday = datetime.datetime.now() - datetime.timedelta(hours=23)
     tomorrow = today + datetime.timedelta(days=1)
     yesterday = today - datetime.timedelta(days=1)
     
