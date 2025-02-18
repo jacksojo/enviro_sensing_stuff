@@ -15,6 +15,9 @@ large_font = ImageFont.truetype(raw_font, large_font_height)
 small_font = ImageFont.truetype(raw_font, small_font_height)
 very_small_font = ImageFont.truetype(raw_font, very_small_font_height)
 
+h_divider = .75
+v_divider = .8
+
 
 
 def init_display():
@@ -145,7 +148,7 @@ def build_image(disp):
   small = '.'+str(current_temp).split('.')[1][:2]+'°'
   small_w = small_font.getlength(small)
 
-  temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(218,200,151,255))
+  temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height*h_divider)-buffer,(218,200,151,255))
   temp_widget.add_line(temps_today,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255),shadow_data=temps_yesterday)
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-2,temp_widget.height-large_font_height+10,color=(255,255,255,128),line_width=2)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-2,temp_widget.height-small_font_height+5, line_width=1)
@@ -159,7 +162,7 @@ def build_image(disp):
   hum_unit = '%'
 
 
-  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width*.75)-buffer*2,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
+  hum_widget = widget(buffer,temp_widget.height+buffer*2,int(disp_width*.v_divider)-buffer,int(disp_height-temp_widget.height)-buffer*3,(121,150,168,255))
   hum_widget.add_line(pres_today,0,0,hum_widget.width,hum_widget.height/2,weight=1,show_y_range=False)
   hum_widget.add_text(pre,small_font,buffer,buffer, line_width=1, color=(255,255,255,120))
   hum_widget.add_text(pre_unit, very_small_font, small_font.getlength(pre)+buffer*2, small_font_height-very_small_font_height+buffer,color=(255,255,255,120))
