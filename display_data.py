@@ -15,8 +15,8 @@ large_font = ImageFont.truetype(raw_font, large_font_height)
 small_font = ImageFont.truetype(raw_font, small_font_height)
 very_small_font = ImageFont.truetype(raw_font, very_small_font_height)
 
-h_divider = .75
-v_divider = .8
+h_divider = .6
+v_divider = .75
 
 
 
