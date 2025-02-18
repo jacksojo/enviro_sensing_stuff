@@ -98,7 +98,7 @@ def build_image(disp):
     q_template = """
       SELECT *
       FROM {table_name}
-      WHERE TIMESTAMP >= '{start}' AND < '{end}'
+      WHERE TIMESTAMP >= '{start}' AND TIMESTAMP < '{end}'
       """
     today = datetime.date.today()
     this_time_yesterday = datetime.datetime.now() - datetime.timedelta(hours=24)
