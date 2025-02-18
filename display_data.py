@@ -136,7 +136,7 @@ def build_image(disp):
   small_w = small_font.getlength(small)
 
   temp_widget = widget(buffer,buffer,int(disp_width)-buffer*2,int(disp_height/1.6)-buffer*2,(218,200,151,255))
-  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,color=(100,100,100,255), weight=1)
+  temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(100,100,100,255), weight=1)
   temp_widget.add_line(temps_yesterday,buffer,buffer,temp_widget.width-10,60,color=(255,255,255,255))
   temp_widget.add_text(big,large_font,temp_widget.width-big_w-small_w-2,temp_widget.height-large_font_height+10,color=(255,255,255,128),line_width=2)
   temp_widget.add_text(small,small_font,temp_widget.width-small_w-2,temp_widget.height-small_font_height+5, line_width=1)
