@@ -129,8 +129,8 @@ def build_image(disp):
   data_today, data_yesterday = get_data()
 
   ## if we only have 1 row of data then skip this image
-  if len(data_today) < 2:
-    sys.exit()
+  #if len(data_today) < 2:
+    #sys.exit()
 
   current_temp = data_today[-1]['temperature']
   current_pressure = data_today[-1]['pressure']
