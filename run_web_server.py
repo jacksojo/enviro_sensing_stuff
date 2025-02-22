@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/image")
 def serve_image():
-    image_path = "/data/latest_image.png"
+    image_path = "./data/latest_image.png"
     return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
