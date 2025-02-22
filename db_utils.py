@@ -1,9 +1,11 @@
 import sqlite3
 import os
 import sys
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).parent
 
 # Define absolute path for the database
-DB_PATH = "./data/sensor_data.db"
+DB_PATH = SCRIPT_DIR+"/data/sensor_data.db"
 
 # Define Schema(s)
 BME280_TABLE_DEF = {
