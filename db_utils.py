@@ -86,8 +86,6 @@ def execute_query(q):
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row 
     cursor = conn.cursor()
-
-    print(cursor.execute("select name from sqlite_master where type='table'").fetchall())
     
     try:
       results = cursor.execute(q).fetchall()
