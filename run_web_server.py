@@ -1,6 +1,8 @@
 from flask import Flask, send_file
 import time
 from db_utils import execute_query, BME280_TABLE_DEF
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).parent
 
 app = Flask(__name__)
 
@@ -11,7 +13,7 @@ app = Flask(__name__)
 
 @app.route("/image")
 def serve_image():
-    image_path = "./data/latest_image.png"
+    image_path = SCRIPT_DIR+"/data/latest_image.png"
     return send_file(image_path, mimetype='image/png')
 
 if __name__ == '__main__':
