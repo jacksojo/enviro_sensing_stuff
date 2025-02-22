@@ -189,4 +189,4 @@ def display_image_on_screen(disp, image):
   disp.display(image)
 
 def save_image(image):
-  image.save("/home/jonathan/db/latest_image.png")
+  image.save("/data/latest_image.png")
