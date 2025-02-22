@@ -14,7 +14,7 @@ TIME_BETWEEN_READINGS = 60
 
 # setup logging
 def setup_logging():
-    logging.basicConfig(filename='./logs/temps_'+str(datetime.date.today())+'.log',
+    logging.basicConfig(filename='enviro_sensing_stuff/logs/temps_'+str(datetime.date.today())+'.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
