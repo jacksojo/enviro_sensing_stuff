@@ -97,3 +97,21 @@ def execute_query(q):
       raise e
 
     return [dict(x) for x in results]
+
+def print_db_info():
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    except:
+        print('error connecting to db at', DB_PATH)
+        raise
+
+    conn.row_factory = sqlite3.Row 
+    cursor = conn.cursor()
+
+    try:
+        results = cursor.execute('select * from sqlite_master')
+    except:
+        print('error getting results')
+        raise
+
+    return results
