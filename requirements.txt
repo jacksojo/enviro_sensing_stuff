@@ -1,0 +1,14 @@
+blinker==1.9.0
+click==8.1.8
+Flask==3.1.0
+gpiod==2.3.0
+gpiodevice==0.0.5
+i2cdevice==1.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.5
+MarkupSafe==3.0.2
+numpy==2.2.3
+pillow==11.1.0
+smbus2==0.5.0
+spidev==3.6
+Werkzeug==3.1.3
