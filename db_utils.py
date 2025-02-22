@@ -110,7 +110,7 @@ def print_db_info():
 
     try:
         results = cursor.execute('select * from sqlite_master')
-        print(results)
+        print(results.fetchall())
     except:
         print('error getting results')
         raise
