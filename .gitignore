@@ -1,1 +1,4 @@
 *.log
+venv/
+data/
+logs/
