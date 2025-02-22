@@ -4,6 +4,8 @@ from smbus2 import SMBus
 import sys
 import logging
 import sqlite3
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).parent
 
 from bme280 import BME280
 from send_email import send_email
@@ -11,10 +13,9 @@ import db_utils
 
 TIME_BETWEEN_READINGS = 60
 
-
 # setup logging
 def setup_logging():
-    logging.basicConfig(filename='enviro_sensing_stuff/logs/temps_'+str(datetime.date.today())+'.log',
+    logging.basicConfig(filename=SCRIPT_DIR+'/logs/temps_'+str(datetime.date.today())+'.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
