@@ -4,6 +4,8 @@ from send_email import send_email
 import st7789
 from db_utils import execute_query, BME280_TABLE_DEF
 import sys
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).parent
 
 raw_font = '/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf'
 large_font_height = 120
@@ -189,4 +191,4 @@ def display_image_on_screen(disp, image):
   disp.display(image)
 
 def save_image(image):
-  image.save("./data/latest_image.png")
+  image.save(SCRIPT_DIR+"/data/latest_image.png")
