@@ -3,7 +3,7 @@ import os
 import sys
 
 # Define absolute path for the database
-DB_PATH = "/data/sensor_data.db"
+DB_PATH = "./data/sensor_data.db"
 
 # Define Schema(s)
 BME280_TABLE_DEF = {
