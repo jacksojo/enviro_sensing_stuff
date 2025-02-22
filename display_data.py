@@ -191,4 +191,4 @@ def display_image_on_screen(disp, image):
   disp.display(image)
 
 def save_image(image):
-  image.save(SCRIPT_DIR / "/data/latest_image.png")
+  image.save(SCRIPT_DIR / 'data' / "latest_image.png")
