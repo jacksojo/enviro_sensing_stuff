@@ -15,7 +15,7 @@ TIME_BETWEEN_READINGS = 60
 
 # setup logging
 def setup_logging():
-    logging.basicConfig(filename=SCRIPT_DIR / '/logs/temps_'+str(datetime.date.today())+'.log',
+    logging.basicConfig(filename=SCRIPT_DIR / 'logs' / f'temps_{str(datetime.date.today())}.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
