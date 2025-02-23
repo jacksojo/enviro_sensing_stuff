@@ -11,9 +11,7 @@ mpu = mpu6050(0x68, bus=0)
 bme280 = read_sensor.init_sensor()
 
 while True:
-   # Temperature Readings in Celsius
-  print(mpu.get_temp())
-  
-  read_sensor.read_data(bme280, write_to_db=False)
 
-  time.sleep(5)
+  print(mpu.get_accel_data(g=True))
+
+  time.sleep(1)
