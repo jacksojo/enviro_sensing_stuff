@@ -12,7 +12,7 @@ bme280 = read_sensor.init_sensor()
 
 while True:
    # Temperature Readings in Celsius
-  print(sensor.get_temp())
+  print(mpu.get_temp())
   
   read_sensor.read_data(bme280, write_to_db=False)
 
