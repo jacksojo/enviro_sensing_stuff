@@ -1,6 +1,6 @@
 import read_sensor
 import time
-mpu6050 import mpu6050
+from mpu6050 import mpu6050
 
 # Pass your MPU6050 Address
 mpu = mpu6050(0x68)
