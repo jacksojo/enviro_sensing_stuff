@@ -12,6 +12,6 @@ bme280 = read_sensor.init_sensor()
 
 while True:
 
-  print(mpu.get_accel_data(g=True))
+  print(mpu.get_gyro_data)
 
   time.sleep(1)
