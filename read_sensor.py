@@ -33,7 +33,7 @@ def take_throwaway_reading(bme280):
     return bme280.get_temperature
 
 
-def read_data(bme280):
+def read_data(bme280, write_to_db=True):
 
     timestamp = datetime.datetime.now()
     db_table = db_utils.BME280_TABLE_DEF
@@ -52,6 +52,7 @@ def read_data(bme280):
             'pressure':pressure
         }
 
-    db_utils.write_row_to_db(db_table['table_name'], payload)
+    if write_to_db:
+        db_utils.write_row_to_db(db_table['table_name'], payload)
 
     return temperature, humidity, pressure
