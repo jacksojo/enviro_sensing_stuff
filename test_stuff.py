@@ -6,7 +6,7 @@ import smbus
 bus = smbus.SMBus(0)
 
 # Pass your MPU6050 Address
-mpu = mpu6050(0x68)
+mpu = mpu6050(0x68, bus=0)
 
 bme280 = read_sensor.init_sensor()
 
