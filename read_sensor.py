@@ -15,11 +15,11 @@ TIME_BETWEEN_READINGS = 60
 
 # setup logging
 def setup_logging():
-    logging.basicConfig(filename=SCRIPT_DIR / 'logs' / f'temps_{str(datetime.date.today())}.log',
+    logging.basicConfig(filename=SCRIPT_DIR / 'logs' / error_logs.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
-                        level=logging.INFO)
+                        level=logging.ERROR)
 
 setup_logging()
 
@@ -41,8 +41,6 @@ def read_data(bme280, write_to_db=True):
     temperature = bme280.get_temperature()
     pressure = bme280.get_pressure()
     humidity = bme280.get_humidity()
-
-    logging.info(f"{temperature}°C {pressure}hPa {humidity}%")
     print(f"{temperature}°C {pressure}hPa {humidity}%")
 
     payload = {
