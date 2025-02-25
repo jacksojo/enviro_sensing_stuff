@@ -1,27 +1,10 @@
 import time
 import datetime
 from smbus2 import SMBus
-import sys
-import logging
-import sqlite3
-from pathlib import Path
-SCRIPT_DIR = Path(__file__).parent
-
 from bme280 import BME280
-from send_email import send_email
 import db_utils
 
 TIME_BETWEEN_READINGS = 60
-
-# setup logging
-def setup_logging():
-    logging.basicConfig(filename=SCRIPT_DIR / 'logs' / error_logs.log',
-                        filemode='a',
-                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                        datefmt='%H:%M:%S',
-                        level=logging.ERROR)
-
-setup_logging()
 
 # Initialise the BME280
 def init_sensor():
