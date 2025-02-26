@@ -20,8 +20,7 @@ def serve_image():
     from run_app import set_display_flags
     
     # Request new image generation without showing on display
-    print('image requested from web')
-    set_display_flags(gen_image=True)
+    set_display_flags(gen_image=True, show_on_screen=False)
     
     # Wait briefly for image generation
     time.sleep(1.2)
