@@ -25,7 +25,7 @@ logging.basicConfig(
 # Global state variables
 GENERATE_IMAGE = False
 DISPLAY_IMAGE_ON_SCREEN = False
-display = None  # Will be initialized in main()
+DISPLAY = None  # Will be initialized in main()
 
 def set_display_flags(gen_image=None, show_on_screen=None):
     global GENERATE_IMAGE, DISPLAY_IMAGE_ON_SCREEN
@@ -35,8 +35,7 @@ def set_display_flags(gen_image=None, show_on_screen=None):
         DISPLAY_IMAGE_ON_SCREEN = show_on_screen
 
 def clear_display():
-    display.set_backlight(False)
-    display.clear()
+    DISPLAY.set_backlight(False)
     print('display turned off')
 
 def handle_error(error):
@@ -48,14 +47,14 @@ def handle_error(error):
 
 def generate_image():
     print("Generating new image...")
-    image = display_data.build_image(display)
+    image = display_data.build_image(DISPLAY)
     display_data.save_image(image)
     return image
 
 def show_on_physical_display(image):
     print("Showing image on screen")
-    display.set_backlight(True)
-    display_data.display_image_on_screen(display, image)
+    DISPLAY.set_backlight(True)
+    display_data.display_image_on_screen(DISPLAY, image)
     print("Image displayed successfully")
     time.sleep(DISPLAY_TIMEOUT)
     clear_display()
@@ -97,10 +96,11 @@ def motion_loop(motion_line):
         time.sleep(1)
 
 def main():
+    global DISPLAY
+    
     print("Initializing components...")
     sensor = read_sensor.init_sensor()
-    global display
-    display = display_data.init_display()
+    DISPLAY = display_data.init_display()
     motion_line = motion_sensor.init_motion_sensor()
     print("Components initialized successfully")
     
