@@ -70,7 +70,6 @@ def display_loop(display):
             if DISPLAY_IMAGE_ON_SCREEN:
                 show_on_physical_display(display, image)
                 set_display_flags(show_on_screen=FALSE)
-                time.sleep(DISPLAY_TIMEOUT-1)
         time.sleep(0.1)
 
 def sensor_loop(sensor, error_count=0):
@@ -95,7 +94,7 @@ def motion_loop(motion_line):
         if motion_sensor.check_motion(motion_line) and not GENERATE_IMAGE:
             print('Motion detected - Triggering display update')
             set_display_flags(gen_image=True, show_on_screen=True)
-            time.sleep(DISPLAY_TIMEOUT-1)
+            time.sleep(DISPLAY_TIMEOUT-2)
         time.sleep(1)
 
 def main():
