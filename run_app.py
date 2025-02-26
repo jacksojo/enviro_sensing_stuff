@@ -23,52 +23,47 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-# Shared queue for display requests
-display_queue = queue.Queue()
-display_active = Event()
+generate_image = False
+display_image_on_screen = False
 
-@dataclass
-class DisplayRequest:
-    show_on_screen: bool = False
+def clear_display():
+    display.set_backlight(False)
+    display_active.clear()
+    print('display turned off')
 
-def handle_display_error(display, error):
-    error_message = f"Display error: {repr(error)}"
+def handle_error(error):
+    error_message = f"error: {repr(error)}"
     print(error_message)
     logging.error(error_message, exc_info=True)
     send_email(error_message)
-    display.set_backlight(False)
-    display_active.clear()
+    clear_display()
 
-def generate_and_save_image(display):
+def generate_image(display):
     print("Generating new image...")
     image = display_data.build_image(display)
     display_data.save_image(image)
     return image
 
 def show_on_physical_display(display, image):
-    print("Showing image on display")
+    print("Showing image on screen")
     display.set_backlight(True)
     display_data.display_image_on_screen(display, image)
     print("Image displayed successfully")
     display_active.set()
     time.sleep(DISPLAY_TIMEOUT)
-    display.set_backlight(False)
-    print('Display turned off')
-    display_active.clear()
+    clear_display()
 
 def display_loop(display):
     while True:
-        try:
-            request = display_queue.get()
-            print("Display request received")
+        if generate_image:
+            image = generate_image(display)
+            generate_image = False
             
-            image = generate_and_save_image(display)
-            
-            if request.show_on_screen:
+            if display_image_on_screen:
                 show_on_physical_display(display, image)
+                display_image_on_screen: False
                 
-        except Exception as e:
-            handle_display_error(display, e)
+                
 
 def sensor_loop(sensor, error_count=0):
     while True:
@@ -78,27 +73,23 @@ def sensor_loop(sensor, error_count=0):
             time.sleep(TIME_BETWEEN_READINGS)
             continue
         except Exception as e:
-            error_message = f"Sensor reading error: {repr(e)}"
-            print(error_message)
-            logging.error(error_message, exc_info=True)
-            send_email(error_message)
-            
-        error_count += 1
+            handle_error(e)
+            error_count += 1
+
         if error_count >= 3:
-            error_message = 'Process terminated due to repeated errors.'
-            print(error_message)
-            send_email(error_message)
-            logging.error(error_message)
+            handle_error('Process terminated due to repeated errors.')
             sys.exit()
             
         time.sleep(TIME_BETWEEN_READINGS)
 
 def motion_loop(motion_line):
     while True:
-        if motion_sensor.check_motion(motion_line) and not display_active.is_set():
+        if motion_sensor.check_motion(motion_line) and not generate_image
             print('Motion detected - Triggering display update')
-            display_queue.put(DisplayRequest(show_on_screen=True))
-        time.sleep(0.1)
+            generate_image = True
+            display_image_on_screen = True
+            time.sleep(DISPLAY_TIMEOUT-1) # wait for image to almost stop displaying
+        time.sleep(1)
 
 def main():
     print("Initializing components...")
