@@ -73,6 +73,7 @@ def display_loop(display):
             
             # Turn off display
             display.set_backlight(False)
+            print('display off')
             display_active.clear()
             
         except Exception as e:
