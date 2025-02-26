@@ -112,7 +112,7 @@ def main():
     Thread(target=motion_loop, args=(motion_line,), daemon=True).start()
     
     print("Starting web server...")
-    run_web_server.run(display_queue)
+    run_web_server.run()
 
 if __name__ == "__main__":
     main()
