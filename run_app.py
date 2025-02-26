@@ -23,8 +23,16 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-generate_image = False
-display_image_on_screen = False
+# Global state variables
+GENERATE_IMAGE = False
+DISPLAY_IMAGE_ON_SCREEN = False
+
+def set_display_flags(gen_image=None, show_on_screen=None):
+    global GENERATE_IMAGE, DISPLAY_IMAGE_ON_SCREEN
+    if gen_image is not None:
+        GENERATE_IMAGE = gen_image
+    if show_on_screen is not None:
+        DISPLAY_IMAGE_ON_SCREEN = show_on_screen
 
 def clear_display():
     display.set_backlight(False)
@@ -55,15 +63,15 @@ def show_on_physical_display(display, image):
 
 def display_loop(display):
     while True:
-        if generate_image:
+        if GENERATE_IMAGE:
             image = generate_image(display)
-            generate_image = False
+            set_display_flags(gen_image=FALSE)
             
-            if display_image_on_screen:
+            if DISPLAY_IMAGE_ON_SCREEN:
                 show_on_physical_display(display, image)
-                display_image_on_screen: False
-                
-                
+                set_display_flags(show_on_screen=FALSE)
+                time.sleep(DISPLAY_TIMEOUT-1)
+        time.sleep(0.1)
 
 def sensor_loop(sensor, error_count=0):
     while True:
@@ -84,11 +92,10 @@ def sensor_loop(sensor, error_count=0):
 
 def motion_loop(motion_line):
     while True:
-        if motion_sensor.check_motion(motion_line) and not generate_image
+        if motion_sensor.check_motion(motion_line) and not GENERATE_IMAGE:
             print('Motion detected - Triggering display update')
-            generate_image = True
-            display_image_on_screen = True
-            time.sleep(DISPLAY_TIMEOUT-1) # wait for image to almost stop displaying
+            set_display_flags(gen_image=True, show_on_screen=True)
+            time.sleep(DISPLAY_TIMEOUT-1)
         time.sleep(1)
 
 def main():
