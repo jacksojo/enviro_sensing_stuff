@@ -25,6 +25,7 @@ logging.basicConfig(
 # Global state variables
 GENERATE_IMAGE = False
 DISPLAY_IMAGE_ON_SCREEN = False
+display = None  # Will be initialized in main()
 
 def set_display_flags(gen_image=None, show_on_screen=None):
     global GENERATE_IMAGE, DISPLAY_IMAGE_ON_SCREEN
@@ -35,6 +36,7 @@ def set_display_flags(gen_image=None, show_on_screen=None):
 
 def clear_display():
     display.set_backlight(False)
+    display.clear()
     print('display turned off')
 
 def handle_error(error):
@@ -44,13 +46,13 @@ def handle_error(error):
     send_email(error_message)
     clear_display()
 
-def generate_image(display):
+def generate_image():
     print("Generating new image...")
     image = display_data.build_image(display)
     display_data.save_image(image)
     return image
 
-def show_on_physical_display(display, image):
+def show_on_physical_display(image):
     print("Showing image on screen")
     display.set_backlight(True)
     display_data.display_image_on_screen(display, image)
@@ -58,14 +60,14 @@ def show_on_physical_display(display, image):
     time.sleep(DISPLAY_TIMEOUT)
     clear_display()
 
-def display_loop(display):
+def display_loop():
     while True:
         if GENERATE_IMAGE:
-            image = generate_image(display)
+            image = generate_image()
             set_display_flags(gen_image=False)
             
             if DISPLAY_IMAGE_ON_SCREEN:
-                show_on_physical_display(display, image)
+                show_on_physical_display(image)
                 set_display_flags(show_on_screen=False)
         time.sleep(0.1)
 
@@ -97,6 +99,7 @@ def motion_loop(motion_line):
 def main():
     print("Initializing components...")
     sensor = read_sensor.init_sensor()
+    global display
     display = display_data.init_display()
     motion_line = motion_sensor.init_motion_sensor()
     print("Components initialized successfully")
@@ -105,7 +108,7 @@ def main():
     read_sensor.take_throwaway_reading(sensor)
     
     Thread(target=sensor_loop, args=(sensor,), daemon=True).start()
-    Thread(target=display_loop, args=(display,), daemon=True).start()
+    Thread(target=display_loop, daemon=True).start()
     Thread(target=motion_loop, args=(motion_line,), daemon=True).start()
     
     print("Starting web server...")
