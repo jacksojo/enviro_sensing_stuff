@@ -91,6 +91,7 @@ def display_loop(display):
 def motion_loop(motion_line):
     while True:
         if motion_sensor.check_motion(motion_line):
+            print('motion detected')
             if not display_active.is_set():
                 display_queue.put(True)
         time.sleep(0.1)  # Small delay to prevent CPU overuse
