@@ -22,10 +22,10 @@ def serve_image():
     
     # Request new image generation without showing on display
     print('image requested from web')
-    generate_image()
+    set_display_flags(gen_image=True)
     
     # Wait briefly for image generation
-    time.sleep(0.2)
+    time.sleep(1.2)
     
     # Return the image file
     image_path = SCRIPT_DIR / "data" / "latest_image.png"
