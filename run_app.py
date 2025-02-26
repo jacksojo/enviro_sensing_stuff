@@ -65,11 +65,11 @@ def display_loop(display):
     while True:
         if GENERATE_IMAGE:
             image = generate_image(display)
-            set_display_flags(gen_image=FALSE)
+            set_display_flags(gen_image=False)
             
             if DISPLAY_IMAGE_ON_SCREEN:
                 show_on_physical_display(display, image)
-                set_display_flags(show_on_screen=FALSE)
+                set_display_flags(show_on_screen=False)
         time.sleep(0.1)
 
 def sensor_loop(sensor, error_count=0):
