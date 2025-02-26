@@ -37,15 +37,6 @@ def init_display():
       )
 
   disp.begin()
-  
-  # Add method to control backlight
-  def set_backlight(state):
-    if state:
-      disp.set_backlight(1)
-    else:
-      disp.set_backlight(0)
-  
-  disp.set_backlight = set_backlight
   return disp
 
 def build_image(disp):
