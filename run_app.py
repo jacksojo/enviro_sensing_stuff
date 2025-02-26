@@ -29,12 +29,15 @@ display_active = Event()
 def sensor_loop(sensor, error_count=0):
     while True:
         if error_count == 3:
-            send_email('Process terminated due to repeated errors.')
-            logging.error("Process terminated after 3 consecutive errors.")
+            error_message = 'Process terminated due to repeated errors.'
+            print(error_message)
+            send_email(error_message)
+            logging.error(error_message)
             sys.exit()
 
         try:
-            read_sensor.read_data(sensor)
+            temperature, humidity, pressure = read_sensor.read_data(sensor)
+            print(f"Sensor reading: {temperature}°C {pressure}hPa {humidity}%")
             error_count = 0
         except Exception as e:
             error_message = f"Sensor reading error: {repr(e)}"
@@ -50,17 +53,23 @@ def display_loop(display):
         try:
             # Wait for display request
             display_queue.get()
+            print("Display request received")
             
             # Turn on display first
             display.set_backlight(True)
+            print("Display backlight on")
             
             # Generate and show image
             try:
+                print("Generating new image...")
                 image = display_data.build_image(display)
                 display_data.save_image(image)
                 display_data.display_image_on_screen(display, image)
+                print("Image displayed successfully")
             except Exception as e:
-                print(f"Error generating/displaying image: {repr(e)}")
+                error_message = f"Error generating/displaying image: {repr(e)}"
+                print(error_message)
+                logging.error(error_message, exc_info=True)
                 display.set_backlight(False)
                 display_active.clear()
                 continue
@@ -73,7 +82,7 @@ def display_loop(display):
             
             # Turn off display
             display.set_backlight(False)
-            print('display off')
+            print('Display turned off')
             display_active.clear()
             
         except Exception as e:
@@ -92,25 +101,33 @@ def display_loop(display):
 def motion_loop(motion_line):
     while True:
         if motion_sensor.check_motion(motion_line):
-            print('motion detected')
+            print('Motion detected')
             if not display_active.is_set():
+                print('Triggering display update')
                 display_queue.put(True)
         time.sleep(0.1)  # Small delay to prevent CPU overuse
 
 def main():
+    print("Initializing components...")
     # Initialize components
     sensor = read_sensor.init_sensor()
     display = display_data.init_display()
     motion_line = motion_sensor.init_motion_sensor()
+    print("Components initialized successfully")
     
     # Take initial reading
+    print("Taking initial sensor reading...")
     read_sensor.take_throwaway_reading(sensor)
     
     # Start threads
+    print("Starting sensor thread...")
     Thread(target=sensor_loop, args=(sensor,), daemon=True).start()
+    print("Starting display thread...")
     Thread(target=display_loop, args=(display,), daemon=True).start()
+    print("Starting motion detection thread...")
     Thread(target=motion_loop, args=(motion_line,), daemon=True).start()
     
+    print("Starting web server...")
     # Start web server (main thread)
     run_web_server.run(display_queue)
 

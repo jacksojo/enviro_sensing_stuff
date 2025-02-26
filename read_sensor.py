@@ -13,18 +13,16 @@ def init_sensor():
     return bme280
 
 def take_throwaway_reading(bme280):
-    return bme280.get_temperature
+    return bme280.get_temperature()
 
 
 def read_data(bme280, write_to_db=True):
-
     timestamp = datetime.datetime.now()
     db_table = db_utils.BME280_TABLE_DEF
 
     temperature = bme280.get_temperature()
     pressure = bme280.get_pressure()
     humidity = bme280.get_humidity()
-    print(f"{temperature}°C {pressure}hPa {humidity}%")
 
     payload = {
             'timestamp':f"'{str(timestamp)}'",
