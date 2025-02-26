@@ -8,7 +8,6 @@ from send_email import send_email
 import sys
 from pathlib import Path
 from threading import Thread, Event
-import queue
 from dataclasses import dataclass
 
 SCRIPT_DIR = Path(__file__).parent
@@ -36,7 +35,6 @@ def set_display_flags(gen_image=None, show_on_screen=None):
 
 def clear_display():
     display.set_backlight(False)
-    display_active.clear()
     print('display turned off')
 
 def handle_error(error):
@@ -57,7 +55,6 @@ def show_on_physical_display(display, image):
     display.set_backlight(True)
     display_data.display_image_on_screen(display, image)
     print("Image displayed successfully")
-    display_active.set()
     time.sleep(DISPLAY_TIMEOUT)
     clear_display()
 
