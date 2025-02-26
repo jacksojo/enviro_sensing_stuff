@@ -1,14 +1,11 @@
-import gpiod
-from gpiod.line import Direction, Value
+import RPi.GPIO as GPIO
 
 MOTION_SENSOR_PIN = 17  # Adjust this to match your GPIO pin
 
 def init_motion_sensor():
-    chip = gpiod.Chip('gpiochip0')
-    motion_line = chip.get_line(MOTION_SENSOR_PIN)
-    config = gpiod.LineSettings(direction=Direction.INPUT)
-    motion_line.request(consumer="motion_sensor", config=config)
-    return motion_line
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(MOTION_SENSOR_PIN, GPIO.IN)
+    return MOTION_SENSOR_PIN
 
-def check_motion(motion_line):
-    return motion_line.get_value() == Value.ACTIVE 
+def check_motion(pin):
+    return GPIO.input(pin) == GPIO.HIGH 
