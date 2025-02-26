@@ -11,13 +11,19 @@ app = Flask(__name__)
 #        data = str(execute_query(f"select * from {BME280_TABLE_DEF['table_name']} order by timestamp desc")[0])
 #        return data
 
-def run(display_queue):
+def run():
     app.run(host='0.0.0.0', port=5000, debug=False)
 
 @app.route("/image")
 def serve_image():
-    # Request new image generation
-    app.display_queue.put(True)
+    # Import here to avoid circular imports
+    from run_app import set_display_flags
+    
+    # Request new image generation without showing on display
+    set_display_flags(gen_image=True, show_on_screen=False)
+    
+    # Wait briefly for image generation
+    time.sleep(0.2)
     
     # Return the image file
     image_path = SCRIPT_DIR / "data" / "latest_image.png"
