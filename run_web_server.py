@@ -2,6 +2,7 @@ from flask import Flask, send_file
 import time
 from db_utils import execute_query, BME280_TABLE_DEF
 from pathlib import Path
+from run_app import generate_image
 SCRIPT_DIR = Path(__file__).parent
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ def serve_image():
     
     # Request new image generation without showing on display
     print('image requested from web')
-    set_display_flags(gen_image=True, show_on_screen=False)
+    generate_image()
     
     # Wait briefly for image generation
     time.sleep(0.2)
