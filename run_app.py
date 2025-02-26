@@ -49,6 +49,7 @@ def generate_image():
     print("Generating new image...")
     image = display_data.build_image(DISPLAY)
     display_data.save_image(image)
+    print('new image saved')
     return image
 
 def show_on_physical_display(image):
