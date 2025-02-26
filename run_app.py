@@ -51,10 +51,19 @@ def display_loop(display):
             # Wait for display request
             display_queue.get()
             
+            # Turn on display first
+            display.set_backlight(True)
+            
             # Generate and show image
-            image = display_data.build_image(display)
-            display_data.save_image(image)
-            display_data.display_image_on_screen(display, image)
+            try:
+                image = display_data.build_image(display)
+                display_data.save_image(image)
+                display_data.display_image_on_screen(display, image)
+            except Exception as e:
+                print(f"Error generating/displaying image: {repr(e)}")
+                display.set_backlight(False)
+                display_active.clear()
+                continue
             
             # Set display active
             display_active.set()
@@ -71,6 +80,13 @@ def display_loop(display):
             print(error_message)
             logging.error(error_message, exc_info=True)
             send_email(error_message)
+            
+            # Ensure display is off and status is cleared in case of error
+            try:
+                display.set_backlight(False)
+                display_active.clear()
+            except:
+                pass
 
 def motion_loop(motion_line):
     while True:
