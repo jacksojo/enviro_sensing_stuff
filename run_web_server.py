@@ -2,7 +2,6 @@ from flask import Flask, send_file
 import time
 from db_utils import execute_query, BME280_TABLE_DEF
 from pathlib import Path
-from run_app import generate_image
 SCRIPT_DIR = Path(__file__).parent
 
 app = Flask(__name__)
