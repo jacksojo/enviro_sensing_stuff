@@ -54,6 +54,7 @@ def generate_image():
 
 def show_on_physical_display(image):
     print("Showing image on screen")
+    DISPLAY.reset()
     DISPLAY.set_backlight(True)
     display_data.display_image_on_screen(DISPLAY, image)
     print("Image displayed successfully")
@@ -63,8 +64,7 @@ def show_on_physical_display(image):
 def display_loop():
     while True:
         if GENERATE_IMAGE.value:
-            try:
-                DISPLAY.reset()  # Reset display
+            try: 
                 image = generate_image()
                 set_display_flags(gen_image=False)
                 if DISPLAY_IMAGE_ON_SCREEN.value:

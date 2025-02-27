@@ -15,12 +15,7 @@ def serve_image():
     print('Image requested from web')
     app.generate_image.value = True
     
-    # Wait for image generation to complete
-    start_time = time.time()
-    while app.generate_image.value:
-        time.sleep(0.1)
-        if time.time() - start_time > 2:  # Timeout after 2 seconds
-            break
+    time.sleep(1)
     
     image_path = SCRIPT_DIR / "data" / "latest_image.png"
     print('Image displayed on web')
