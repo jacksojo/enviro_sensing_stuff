@@ -3,7 +3,7 @@ import time
 
 MOTION_SENSOR_PIN = 17
 DEBOUNCE_TIME = 3  # seconds between valid triggers
-REQUIRED_STABLE_TIME = 0.5  # seconds motion must be stable to trigger
+REQUIRED_STABLE_TIME = 2  # seconds motion must be stable to trigger
 last_trigger_time = 0
 
 def init_motion_sensor():
