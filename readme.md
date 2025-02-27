@@ -27,7 +27,7 @@ A Raspberry Pi project that monitors temperature, humidity, and pressure using a
   - Pillow
   - RPi.GPIO
   - smbus2
-  - bme280 (custom package)
+  - bme280
 
 ## Installation
 
