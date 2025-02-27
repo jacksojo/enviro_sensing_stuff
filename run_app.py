@@ -64,9 +64,9 @@ def display_loop():
     while True:
         if GENERATE_IMAGE.value:
             try:
+                DISPLAY.reset()  # Reset display
                 image = generate_image()
                 set_display_flags(gen_image=False)
-                
                 if DISPLAY_IMAGE_ON_SCREEN.value:
                     show_on_physical_display(image)
                     set_display_flags(show_on_screen=False)
