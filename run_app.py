@@ -8,7 +8,8 @@ from send_email import send_email
 import sys
 from pathlib import Path
 from threading import Thread, Event
-from dataclasses import dataclass
+from multiprocessing import Value
+import ctypes
 
 SCRIPT_DIR = Path(__file__).parent
 TIME_BETWEEN_READINGS = 60
@@ -23,16 +24,15 @@ logging.basicConfig(
 )
 
 # Global state variables
-GENERATE_IMAGE = False
-DISPLAY_IMAGE_ON_SCREEN = False
+GENERATE_IMAGE = Value(ctypes.c_bool, False)
+DISPLAY_IMAGE_ON_SCREEN = Value(ctypes.c_bool, False)   
 DISPLAY = None  # Will be initialized in main()
 
 def set_display_flags(gen_image=None, show_on_screen=None):
-    global GENERATE_IMAGE, DISPLAY_IMAGE_ON_SCREEN
     if gen_image is not None:
-        GENERATE_IMAGE = gen_image
+        GENERATE_IMAGE.value = gen_image
     if show_on_screen is not None:
-        DISPLAY_IMAGE_ON_SCREEN = show_on_screen
+        DISPLAY_IMAGE_ON_SCREEN.value = show_on_screen
 
 def clear_display():
     DISPLAY.set_backlight(False)
@@ -62,11 +62,11 @@ def show_on_physical_display(image):
 
 def display_loop():
     while True:
-        if GENERATE_IMAGE:
+        if GENERATE_IMAGE.value:
             image = generate_image()
             set_display_flags(gen_image=False)
             
-            if DISPLAY_IMAGE_ON_SCREEN:
+            if DISPLAY_IMAGE_ON_SCREEN.value:
                 show_on_physical_display(image)
                 set_display_flags(show_on_screen=False)
         time.sleep(0.1)
@@ -113,7 +113,7 @@ def main():
     Thread(target=motion_loop, args=(motion_line,), daemon=True).start()
     
     print("Starting web server...")
-    run_web_server.run()
-
+    run_web_server.run(GENERATE_IMAGE, DISPLAY_IMAGE_ON_SCREEN)
+    
 if __name__ == "__main__":
     main()
