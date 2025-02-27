@@ -75,21 +75,14 @@ def display_loop():
                 set_display_flags(gen_image=False, show_on_screen=False)
         time.sleep(0.1)
 
-def sensor_loop(sensor, error_count=0):
+def sensor_loop(sensor):
     while True:
         try:
             temperature, humidity, pressure = read_sensor.read_data(sensor)
             print(f"Sensor reading: {temperature}°C {pressure}hPa {humidity}%")
-            time.sleep(TIME_BETWEEN_READINGS)
-            continue
         except Exception as e:
             handle_error(e)
-            error_count += 1
-
-        if error_count >= 3:
-            handle_error('Process terminated due to repeated errors.')
-            sys.exit()
-            
+            sys.exit()  # Just exit on any error, systemd will restart if needed
         time.sleep(TIME_BETWEEN_READINGS)
 
 def motion_loop(motion_line):
@@ -110,7 +103,7 @@ def main():
     print("Components initialized successfully")
     
     print("Taking initial sensor reading...")
-    read_sensor.take_throwaway_reading(sensor)
+    sensor.get_temperature()
     
     Thread(target=sensor_loop, args=(sensor,), daemon=True).start()
     Thread(target=display_loop, daemon=True).start()

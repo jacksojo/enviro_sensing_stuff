@@ -12,9 +12,6 @@ def init_sensor():
     bme280 = BME280(i2c_dev=bus)
     return bme280
 
-def take_throwaway_reading(bme280):
-    return bme280.get_temperature()
-
 
 def read_data(bme280, write_to_db=True):
     timestamp = datetime.datetime.now()
