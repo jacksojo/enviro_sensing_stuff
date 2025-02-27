@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 MOTION_SENSOR_PIN = 17
-DEBOUNCE_TIME = 2  # seconds between valid triggers
-REQUIRED_STABLE_TIME = 0.3  # seconds motion must be stable to trigger
+DEBOUNCE_TIME = 1  # seconds between valid triggers
+REQUIRED_STABLE_TIME = 0.2  # seconds motion must be stable to trigger
 last_trigger_time = 0
 
 def init_motion_sensor():
