@@ -10,7 +10,7 @@ img = Image.open(path)
 
 if image:
   print('image found')
-else
+else:
   print('image read error').convert("RGB")
   
 pixels = img.load()
