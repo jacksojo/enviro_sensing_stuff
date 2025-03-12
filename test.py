@@ -8,7 +8,7 @@ path = r'data/latest_image.png'
 
 img = Image.open(path)
 
-if image:
+if img:
   print('image found')
 else:
   print('image read error').convert("RGB")
