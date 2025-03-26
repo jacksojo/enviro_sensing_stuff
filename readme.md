@@ -1,84 +1,39 @@
-# Environmental Sensor Display
+# Environmental Sensor (Pico W Version)
 
-A Raspberry Pi project that monitors temperature, humidity, and pressure using a BME280 sensor, displaying the data on both a physical LCD screen and web interface. The display activates when motion is detected.
+A Raspberry Pi Pico W project that monitors temperature, humidity, and pressure using a BME280 sensor and serves the data via a web interface.
 
 ## Features
-
 - Real-time environmental monitoring (temperature, humidity, pressure)
-- Motion-activated physical display
-- Web interface for remote monitoring
-- Historical data visualization
-- SQLite database storage
-- Automatic error reporting via email
+- Simple web interface for remote monitoring
+- Last 24 hours of readings stored in memory
 
 ## Hardware Requirements
-
-- Raspberry Pi
+- Raspberry Pi Pico W
 - BME280 sensor (I2C interface)
-- ST7789 LCD Display
-- PIR Motion Sensor
 - Appropriate wiring/connections
 
-## Software Dependencies
-
-- Python 3.7+
-- Required Python packages:
-  - Flask
-  - Pillow
-  - RPi.GPIO
-  - smbus2
-  - bme280
-
 ## Installation
+1. Install MicroPython on your Pico W.
+2. Copy all .py files to the Pico W.
+3. Configure WiFi settings in `boot.py`.
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Pin Connections
+- BME280: SDA -> GP2, SCL -> GP3
 
-3. Set up environment variables for email notifications:
-   ```bash
-   export EMAIL_USER="your_email@gmail.com" # The email to send from
-   export EMAIL_PASSWORD="your_app_password" # The smtp password for the email
-   export MY_EMAIL='recipient@email.com'
-   ```
+## Detailed Wiring Instructions
 
-4. Initialize the database:
-    ```bash
-    python3 -c "import db_utils; db_utils.create_db()"
-    ```
+### Power Connections
+- BME280 VIN -> Pico 3.3V
+- BME280 GND -> Pico GND
+
+### Data Connections
+1. BME280 Sensor (I2C)
+   - SDA -> GP2 (I2C1 SDA)
+   - SCL -> GP3 (I2C1 SCL)
 
 ## Usage
-
-1. Run the application:
-   ```bash
-   python3 run_app.py
-   ```
-
 The application will:
-- Start collecting sensor data every 60 seconds
-- Activate display when motion is detected
-- Start a web server on port 5000
+- Start collecting sensor data.
+- Start a web server on port 80.
 
-Access the web interface at: `http://your_pi_ip:5000/image`
-
-## File Structure
-
-- `run_app.py` - Main application entry point
-- `display_data.py` - Display rendering and image generation
-- `read_sensor.py` - BME280 sensor interface
-- `motion_sensor.py` - PIR motion sensor interface
-- `db_utils.py` - Database operations
-- `run_web_server.py` - Flask web server
-- `widget.py` - Display widget components
-- `data_queries.py` - Database query functions
-
-## Error Handling
-
-Errors are logged to `logs/error_log.log` and critical errors trigger email notifications to the configured address.
-
-## License
-
-MIT License
-
+Access the temperature data at: `http://<your_pico_ip>/data`
