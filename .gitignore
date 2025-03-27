@@ -6,3 +6,4 @@ env_backup.txt
 __pycache__/
 nohup.out
 .vscode/
+passwords.py

@@ -7,9 +7,14 @@ from logger import Logger
 import socket
 import json
 from machine import Pin
+import gc
+import passwords
+
 
 # Constants
-TIME_BETWEEN_READINGS = 60  # seconds
+TIME_BETWEEN_READINGS = 3600  # seconds aka an hour
+TIME_BETWEEN_FINE_GRAIN_READINGS = 60 # seconds
+NUMBER_OF_FINE_GRAIN_READINGS = 10 # number of fine grain readings to store
 MAX_CONNECTIONS = 3  # Maximum number of connection attempts
 
 # Initialize logger
@@ -34,9 +39,12 @@ except Exception as e:
 # Store readings
 today_readings = []
 yesterday_readings = []
+fine_grain_readings = []
 date_today = utime.localtime()[2]
 last_reading_time = 0
+last_fine_grain_reading_time = 0
 latest_reading = None  # Store the most recent reading
+latest_fine_grain_reading = None  # Store the most recent fine grain reading
 
 # Function for visual feedback
 def blink_led(times, delay=0.2):
@@ -122,8 +130,8 @@ def main():
     logger.log("Starting environmental monitor...")
     
     # Connect to WiFi
-    ssid = '___'  # Replace with your WiFi network name
-    password = '___'  # Replace with your WiFi password
+    ssid = passwords.purcel_ssid  # Replace with your WiFi network name
+    password = passwords.purcel_password  # Replace with your WiFi password
     ip_address = connect_to_wifi(ssid, password)
     if not ip_address:
         logger.log("Failed to connect to WiFi. Exiting.", "ERROR")
@@ -231,6 +239,9 @@ def main():
             
             # Short sleep to prevent tight loop
             utime.sleep(0.1)
+
+            # Free up memory
+            gc.collect()
         
         except Exception as e:
             logger.log(f"Unexpected error: {e}", "ERROR")

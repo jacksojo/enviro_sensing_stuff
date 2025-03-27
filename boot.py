@@ -1,8 +1,9 @@
-# boot.py
 import network
 import time
 from machine import Pin
 import webrepl
+import ntptime  # Module for syncing time with NTP servers
+import passwords
 
 # Setup LED
 led = Pin("LED", Pin.OUT)  # Pico's built-in LED
@@ -21,8 +22,8 @@ time.sleep(1)
 led.off()
 
 # Setup WiFi
-ssid = '___'
-password = '___'
+ssid = passwords.purcel_ssid  # Replace with your WiFi network name
+password = passwords.purced_password  # Replace with your WiFi password
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(ssid, password)
@@ -36,5 +37,17 @@ while not wlan.isconnected():
 blink_led(5, 0.1)
 print('Network Config:', wlan.ifconfig())
 
+# Sync time with NTP server
+try:
+    print("Synchronizing time with NTP server...")
+    ntptime.settime()  # Sync the Pico's RTC with an NTP server
+    print("Time synchronized successfully!")
+except Exception as e:
+    print(f"Failed to synchronize time: {e}")
+
+# Print the current time
+current_time = time.localtime()
+print(f"Current time: {current_time[0]}-{current_time[1]:02d}-{current_time[2]:02d} {current_time[3]:02d}:{current_time[4]:02d}:{current_time[5]:02d}")
+
 # WebREPL Setup
-webrepl.start(password='Monster1')
+webrepl.start(password=passwords.purcel_webrepl_password)
