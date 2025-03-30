@@ -7,3 +7,5 @@ __pycache__/
 nohup.out
 .vscode/
 passwords.py
+ymqtt_simple.py
+.micropico

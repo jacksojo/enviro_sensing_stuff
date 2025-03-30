@@ -23,7 +23,7 @@ led.off()
 
 # Setup WiFi
 ssid = passwords.purcel_ssid  # Replace with your WiFi network name
-password = passwords.purced_password  # Replace with your WiFi password
+password = passwords.purcel_password  # Replace with your WiFi password
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(ssid, password)
